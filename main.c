@@ -1,7 +1,6 @@
-#include "library.h"
-
 #include <stdio.h>
 
-void hello(void) {
+int main(void) {
     printf("Hello, World!\n");
+    return 0;
 }

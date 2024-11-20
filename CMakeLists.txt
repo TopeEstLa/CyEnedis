@@ -3,4 +3,4 @@ project(CyEnedis C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_library(CyEnedis STATIC library.c)
+add_executable(CyEnedis main.c)
