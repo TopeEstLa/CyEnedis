@@ -3,4 +3,12 @@ project(CyEnedis C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(CyEnedis main.c)
+include_directories(
+        include/
+)
+
+add_executable(CyEnedis src/main.c
+        include/avl.h
+        include/station.h
+        src/station.c
+        src/avl.c)
