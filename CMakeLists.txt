@@ -11,4 +11,6 @@ add_executable(CyEnedis src/main.c
         include/avl.h
         include/station.h
         src/station.c
-        src/avl.c)
+        src/avl.c
+        include/maths.h
+        src/maths.c)

@@ -3,6 +3,9 @@
 
 #include <station.h>
 
+#define MIN_TOLERANCE -1
+#define MAX_TOLERANCE 1
+
 /**
  * @brief AVL tree node for stations.
  * @param station The station struct.
