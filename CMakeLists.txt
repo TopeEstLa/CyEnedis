@@ -14,4 +14,5 @@ add_executable(CyEnedis src/main.c
         src/maths.c
         include/application_settings.h
         src/application_settings.c
-        include/csv_parser.h)
+        include/csv_parser.h
+        src/csv_parser.c)

@@ -58,6 +58,14 @@ bool should_process_station(ParsedData* data, ApplicationSettings* settings);
  */
 bool should_process_consumer(ParsedData* data, ApplicationSettings* settings);
 
+/**
+ * @brief Get the parent station of the consumer.
+ * @param data The parsed data.
+ * @param settings The application settings.
+ * @return The parent station id or -1 if not found.
+ */
+int get_parent_station(ParsedData* data, ApplicationSettings* settings);
+
 
 
 #endif //CSV_PARSER_H

@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-#include "application_settings.h"
+#include <application_settings.h>
+#include <csv_parser.h>
 
 int main(int argc, char *argv[]) {
 
@@ -19,5 +20,6 @@ int main(int argc, char *argv[]) {
     }
 
     print_application_settings(settings);
+    process_csv_file(settings);
     return 0;
 }
