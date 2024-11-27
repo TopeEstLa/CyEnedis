@@ -45,14 +45,6 @@ StationNode *insert_station_node(StationNode *root, int id, long capacity, long 
 StationNode *get_station_node(StationNode *root, long id);
 
 /**
- * @brief Removes a station node from the AVL tree.
- * @param root The root of the AVL tree.
- * @param id The id of the station to be removed.
- * @return The new root of the AVL tree.
- */
-StationNode *delete_station_node(StationNode *root, long id);
-
-/**
  * @brief Get the height of the node.
  * @param node The node.
  * @return The height of the node.
