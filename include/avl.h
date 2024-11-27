@@ -1,9 +1,7 @@
 #ifndef AVL_H
 #define AVL_H
 
-#include <station.h>
-
-#define MIN_TOLERANCE -1
+#define MIN_TOLERANCE (-1)
 #define MAX_TOLERANCE 1
 
 /**
