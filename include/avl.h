@@ -6,7 +6,9 @@
 
 /**
  * @brief AVL tree node for stations.
- * @param station The station struct.
+ * @param id id of the station corresponding to the node.
+ * @param capacity The capacity of the station.
+ * @param load The load of the station.
  * @param height The height of the node.
  * @param left The left child of the node.
  * @param right The right child of the node.

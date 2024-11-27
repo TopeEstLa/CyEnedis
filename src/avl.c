@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <maths.h>
 
-
 StationNode *create_station_node(int id, long capacity, long load) {
     StationNode *node = malloc(sizeof(StationNode));
     if (node == NULL) return NULL;
@@ -72,7 +71,6 @@ int get_height(StationNode *node) {
     return node->height;
 }
 
-
 void update_height(StationNode *node) {
     if (node == NULL) return;
 
@@ -84,7 +82,6 @@ int balance_factor(StationNode *node) {
 
     return get_height(node->left) - get_height(node->right);
 }
-
 
 StationNode *rotate_left(StationNode *node) {
     StationNode *new_root = node->right;
