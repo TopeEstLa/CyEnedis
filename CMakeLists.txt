@@ -5,9 +5,14 @@ set(CMAKE_C_STANDARD 11)
 
 include_directories(
         include/
+        libs/include/
 )
 
-add_executable(CyEnedis src/main.c
+add_executable(CyEnedis
+        libs/include/list.h
+        libs/src/list.c
+
+        src/main.c
         include/avl.h
         src/avl.c
         include/maths.h

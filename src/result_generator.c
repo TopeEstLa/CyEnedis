@@ -1,11 +1,12 @@
 #include <result_generator.h>
 
 #include <stdlib.h>
+#include <list.h>
 
-StationResult* create_station_result(StationNode* node) {
+StationResult *create_station_result(StationNode *node) {
     if (node == NULL) return NULL;
 
-    StationResult* result = malloc(sizeof(StationResult));
+    StationResult *result = malloc(sizeof(StationResult));
     if (result == NULL) return NULL;
 
     result->station_id = node->id;
@@ -14,4 +15,44 @@ StationResult* create_station_result(StationNode* node) {
     result->ratio = (double) (node->load / node->capacity);
 
     return result;
+}
+
+void free_station_result(StationResult* result) {
+    if (result == NULL) return;
+    free(result);
+}
+
+void collect_results_helper(StationNode *node, List *list) {
+    if (node == NULL) return;
+
+    collect_results_helper(node->left, list);
+
+    StationResult *result = create_station_result(node);
+    if (result == NULL) return;
+    append(list, result);
+
+    collect_results_helper(node->right, list);
+}
+
+StationResult **collect_results(StationNode *root, int *count) {
+    if (root == NULL) return NULL;
+    *count = 0;
+
+    List *list = createList();
+    if (list == NULL) return NULL;
+    collect_results_helper(root, list);
+
+    StationResult **results = malloc(list->size * sizeof(StationResult *));
+    if (results == NULL) return NULL;
+
+    ListNode *current = list->head;
+    for (int i = 0; i < list->size; i++) {
+        results[i] = current->data;
+        current = current->next;
+    }
+
+    *count = list->size;
+    freeList(list);
+
+    return results;
 }

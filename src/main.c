@@ -2,6 +2,7 @@
 
 #include <application_settings.h>
 #include <csv_parser.h>
+#include <result_generator.h>
 
 
 int main(int argc, char *argv[]) {
@@ -29,6 +30,18 @@ int main(int argc, char *argv[]) {
 
     pretty_print_avl(node, 0);
 
+    int count = 0;
+    StationResult **results = collect_results(node, &count);
+    if (results == NULL) {
+        printf("Error collecting results\n");
+        free_application_settings(settings);
+        free_station_node(node);
+        return 1;
+    }
 
+    for (int i = 0; i < count; i++) {
+        printf("%d: %lld %lld %.2f\n", results[i]->station_id, results[i]->capacity, results[i]->load, results[i]->ratio);
+    }
+    
     return 0;
 }

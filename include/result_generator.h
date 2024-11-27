@@ -2,6 +2,7 @@
 #define RESULT_GENERATOR_H
 
 #include <avl.h>
+#include <list.h>
 
 /**
  * @brief Structure for the results of a station
@@ -26,7 +27,13 @@ typedef struct station_result {
 StationResult* create_station_result(StationNode* node);
 
 /**
- * @brief Collect the results from an AVL tree
+ * @brief Free a station result
+ * @param result The station result to free
+ */
+void free_station_result(StationResult* result);
+
+/**
+ * @brief Facade function to collect results from an AVL tree and transform them into a tab
  * @param root The root of the AVL tree
  * @param count The number of results
  * @return The array of results
@@ -34,12 +41,11 @@ StationResult* create_station_result(StationNode* node);
 StationResult** collect_results(StationNode* root, int* count);
 
 /**
- * @brief Sort the results by capacity
- * @param results The array of results
- * @param count The number of results
- * @return The sorted array of results
+ * @brief Using an List (from CDataType) to collect results from an AVL tree
+ * @param node the node to add to the list
+ * @param list the list to add to
  */
-StationResult** sort_results(StationResult** results, int count);
+void collect_results_helper(StationNode *node, List *list);
 
 
 #endif //RESULT_GENERATOR_H
