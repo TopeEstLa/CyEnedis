@@ -9,8 +9,8 @@ include_directories(
 
 add_executable(CyEnedis src/main.c
         include/avl.h
-        include/station.h
-        src/station.c
         src/avl.c
         include/maths.h
-        src/maths.c)
+        src/maths.c
+        include/application_settings.h
+        src/application_settings.c)
