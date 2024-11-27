@@ -5,7 +5,9 @@
 
 
 StationNode *create_station_node(int id, long capacity, long load) {
-    StationNode *node = (StationNode *) malloc(sizeof(StationNode));
+    StationNode *node = malloc(sizeof(StationNode));
+    if (node == NULL) return NULL;
+
     node->id = id;
     node->capacity = capacity;
     node->load = load;
