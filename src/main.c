@@ -39,9 +39,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    for (int i = 0; i < count; i++) {
-        printf("%d: %lld %lld %.2f\n", results[i]->station_id, results[i]->capacity, results[i]->load, results[i]->ratio);
-    }
-    
+    printf("Results:\n");
+    print_station_result(results, count);
+    sort_by_capacity(results, count);
+    printf("Results sorted by capacity:\n");
+    print_station_result(results, count);
+
     return 0;
 }

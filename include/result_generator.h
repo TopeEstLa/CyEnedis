@@ -33,6 +33,13 @@ StationResult* create_station_result(StationNode* node);
 void free_station_result(StationResult* result);
 
 /**
+ * @brief Print a station result to the console
+ * @param result The station result to print
+ * @param count The number of results
+ */
+void print_station_result(StationResult** result, int count);
+
+/**
  * @brief Facade function to collect results from an AVL tree and transform them into a tab
  * @param root The root of the AVL tree
  * @param count The number of results
@@ -46,6 +53,8 @@ StationResult** collect_results(StationNode* root, int* count);
  * @param list the list to add to
  */
 void collect_results_helper(StationNode *node, List *list);
+
+StationResult** sort_by_capacity(StationResult** results, int count);
 
 
 #endif //RESULT_GENERATOR_H
