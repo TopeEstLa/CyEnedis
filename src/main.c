@@ -8,7 +8,7 @@
 
 long long current_time_in_ms() {
     struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts); // Use CLOCK_MONOTONIC to avoid time jumps
+    clock_gettime(1, &ts); // Use CLOCK_MONOTONIC to avoid time jumps
     return (ts.tv_sec * 1000LL) + (ts.tv_nsec / 1000000); // Convert to milliseconds
 }
 
