@@ -14,7 +14,9 @@
  * @param right The right child of the node.
  */
 typedef struct station_node {
-    struct station *station;
+    int id;
+    long capacity;
+    long load;
     int height;
     struct station_node *left, *right;
 } StationNode;
@@ -24,7 +26,7 @@ typedef struct station_node {
  * @param station The station struct.
  * @return The new station node (can be a root or a leaf).
  */
-StationNode *create_station_node(Station *station);
+StationNode *create_station_node(int id, long capacity, long load);
 
 /**
  * @brief Inserts a station node to the AVL tree.
@@ -32,7 +34,15 @@ StationNode *create_station_node(Station *station);
  * @param station The station struct.
  * @return The new root of the AVL tree.
  */
-StationNode *insert_station_node(StationNode *root, Station *station);
+StationNode *insert_station_node(StationNode *root, int id, long capacity, long load);
+
+/**
+ * @brief Get a station node from the AVL tree.
+ * @param root The root of the AVL tree.
+ * @param id The id of the station.
+ * @return The station node or NULL if not found.
+ */
+StationNode *get_station_node(StationNode *root, long id);
 
 /**
  * @brief Removes a station node from the AVL tree.

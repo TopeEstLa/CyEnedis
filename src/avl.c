@@ -4,23 +4,26 @@
 #include <maths.h>
 
 
-StationNode *create_station_node(Station *station) {
-    StationNode *node = (StationNode *)malloc(sizeof(StationNode));
-    node->station = station;
+StationNode *create_station_node(int id, long capacity, long load) {
+    StationNode *node = (StationNode *) malloc(sizeof(StationNode));
+    node->id = id;
+    node->capacity = capacity;
+    node->load = load;
     node->height = 1;
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
-StationNode *insert_station_node(StationNode *root, Station *station) {
-    if (root == NULL) return create_station_node(station);
+StationNode *insert_station_node(StationNode *root, int id, long capacity, long load) {
+    if (root == NULL) return create_station_node(id, capacity, load);
 
-    if (station->id < root->station->id) {
-        root->left = insert_station_node(root->left, station);
-    } else if (station->id > root->station->id) {
-        root->right = insert_station_node(root->right, station);
+    if (id < root->id) {
+        root->left = insert_station_node(root->left, id, capacity, load);
+    } else if (id > root->id) {
+        root->right = insert_station_node(root->right, id, capacity, load);
     } else {
+        //No duplicates allowed
         return root;
     }
 
@@ -28,20 +31,20 @@ StationNode *insert_station_node(StationNode *root, Station *station) {
 
     int balance = balance_factor(root);
 
-    if (balance > MAX_TOLERANCE && station->id < root->left->station->id) {
+    if (balance > MAX_TOLERANCE && id < root->left->id) {
         return rotate_right(root);
     }
 
-    if (balance < MIN_TOLERANCE && station->id > root->right->station->id) {
+    if (balance < MIN_TOLERANCE && id > root->right->id) {
         return rotate_left(root);
     }
 
-    if (balance > MAX_TOLERANCE && station->id > root->left->station->id) {
+    if (balance > MAX_TOLERANCE && id > root->left->id) {
         root->left = rotate_left(root->left);
         return rotate_right(root);
     }
 
-    if (balance < MIN_TOLERANCE && station->id < root->right->station->id) {
+    if (balance < MIN_TOLERANCE && id < root->right->id) {
         root->right = rotate_right(root->right);
         return rotate_left(root);
     }
@@ -49,8 +52,16 @@ StationNode *insert_station_node(StationNode *root, Station *station) {
     return root;
 }
 
-StationNode *delete_station_node(StationNode *root, long id) {
+StationNode *get_station_node(StationNode *root, long id) {
+    if (root == NULL) return NULL;
 
+    if (id < root->id) {
+        return get_station_node(root->left, id);
+    } else if (id > root->id) {
+        return get_station_node(root->right, id);
+    } else {
+        return root;
+    }
 }
 
 int get_height(StationNode *node) {
@@ -58,6 +69,7 @@ int get_height(StationNode *node) {
 
     return node->height;
 }
+
 
 void update_height(StationNode *node) {
     if (node == NULL) return;
@@ -70,6 +82,7 @@ int balance_factor(StationNode *node) {
 
     return get_height(node->left) - get_height(node->right);
 }
+
 
 StationNode *rotate_left(StationNode *node) {
     StationNode *new_root = node->right;
