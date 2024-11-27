@@ -3,9 +3,18 @@
 #include <application_settings.h>
 #include <csv_parser.h>
 #include <result_generator.h>
+#include <time.h>
+
+long long current_time_in_ms() {
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts); // Use CLOCK_MONOTONIC to avoid time jumps
+    return (ts.tv_sec * 1000LL) + (ts.tv_nsec / 1000000); // Convert to milliseconds
+}
 
 
 int main(int argc, char *argv[]) {
+    long long start_time = current_time_in_ms();
+
     ApplicationSettings *settings = parse_application_settings(argc, argv);
     if (settings == NULL) {
         printf("Invalid settings\n");
@@ -21,6 +30,9 @@ int main(int argc, char *argv[]) {
     }
 
     print_application_settings(settings);
+    long long setting_time = current_time_in_ms();
+    printf("Settings elapsed time: %lld ms\n", setting_time - start_time);
+
     StationNode* node = process_csv_file(settings);
     if (node == NULL) {
         printf("Error processing file\n");
@@ -29,6 +41,8 @@ int main(int argc, char *argv[]) {
     }
 
     pretty_print_avl(node, 0);
+    long long processing_time = current_time_in_ms();
+    printf("Processing elapsed time: %lld ms\n", processing_time - setting_time);
 
     int count = 0;
     StationResult **results = collect_results(node, &count);
@@ -41,9 +55,27 @@ int main(int argc, char *argv[]) {
 
     printf("Results:\n");
     print_station_result(results, count);
+
+    long long collect_time = current_time_in_ms();
+    printf("Collect elapsed time: %lld ms\n", collect_time - processing_time);
+
     sort_by_capacity(results, count);
     printf("Results sorted by capacity:\n");
     print_station_result(results, count);
+    long long sort_time = current_time_in_ms();
+    printf("Sort elapsed time: %lld ms\n", sort_time - collect_time);
+
+    for (int i = 0; i < count; i++) {
+        free_station_result(results[i]);
+    }
+    free(results);
+
+    free_station_node(node);
+    free_application_settings(settings);
+
+    long long end_time = current_time_in_ms();
+
+    printf("Elapsed time: %lld ms\n", end_time - start_time);
 
     return 0;
 }

@@ -54,6 +54,12 @@ StationResult** collect_results(StationNode* root, int* count);
  */
 void collect_results_helper(StationNode *node, List *list);
 
+/**
+ * Bubble sort to sort the results by capacity
+ * @param results
+ * @param count
+ * @return
+ */
 StationResult** sort_by_capacity(StationResult** results, int count);
 
 
