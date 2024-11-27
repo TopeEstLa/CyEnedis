@@ -3,8 +3,8 @@
 #include <application_settings.h>
 #include <csv_parser.h>
 
-int main(int argc, char *argv[]) {
 
+int main(int argc, char *argv[]) {
     ApplicationSettings *settings = parse_application_settings(argc, argv);
     if (settings == NULL) {
         printf("Invalid settings\n");

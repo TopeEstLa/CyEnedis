@@ -11,13 +11,12 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
     FILE *file = fopen(settings->filename, "r");
     if (file == NULL) return NULL;
 
-    char line[1024];
+    char line[3024];
     StationNode *root = NULL;
 
     fgets(line, sizeof(line), file);
 
     while (fgets(line, 1024, file)) {
-        printf("Parsing Line %s", line);
         ParsedData *data = parse_csv_line(settings, line);
         if (data == NULL) continue;
 
@@ -65,7 +64,7 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line) {
         char* value = strcmp(token, "-") == 0 ? NULL : strdup(token);
 
         long valueInt;
-        if (value) {
+        if (value != NULL) {
             valueInt = atol(value);
         } else {
             valueInt = -1;
