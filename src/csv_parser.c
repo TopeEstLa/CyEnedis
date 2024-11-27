@@ -85,7 +85,7 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line) {
             valueLong = atoll(value);
         } else {
             valueInt = -1;
-            valueLong = -1;
+            valueLong = 0;
         }
 
         switch (field) {
