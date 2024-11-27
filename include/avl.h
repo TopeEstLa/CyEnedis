@@ -37,6 +37,12 @@ StationNode *create_station_node(int id, long capacity, long load);
 StationNode *insert_station_node(StationNode *root, int id, long capacity, long load);
 
 /**
+ * @brief Frees a station node and its children.
+ * @param node The node to free.
+ */
+void free_station_node(StationNode *node);
+
+/**
  * @brief Get a station node from the AVL tree.
  * @param root The root of the AVL tree.
  * @param id The id of the station.

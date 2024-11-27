@@ -53,6 +53,14 @@ StationNode *insert_station_node(StationNode *root, int id, long capacity, long 
     return root;
 }
 
+void free_station_node(StationNode *node) {
+    if (node == NULL) return;
+
+    free_station_node(node->left);
+    free_station_node(node->right);
+    free(node);
+}
+
 StationNode *get_station_node(StationNode *root, long id) {
     if (root == NULL) return NULL;
 
