@@ -15,8 +15,8 @@
  */
 typedef struct station_node {
     int id;
-    long capacity;
-    long load;
+    long long capacity;
+    long long load;
     int height;
     struct station_node *left, *right;
 } StationNode;
@@ -26,7 +26,7 @@ typedef struct station_node {
  * @param station The station struct.
  * @return The new station node (can be a root or a leaf).
  */
-StationNode *create_station_node(int id, long capacity, long load);
+StationNode *create_station_node(int id, long long capacity, long long load);
 
 /**
  * @brief Inserts a station node to the AVL tree.
@@ -34,7 +34,7 @@ StationNode *create_station_node(int id, long capacity, long load);
  * @param station The station struct.
  * @return The new root of the AVL tree.
  */
-StationNode *insert_station_node(StationNode *root, int id, long capacity, long load);
+StationNode *insert_station_node(StationNode *root, int id, long long capacity, long long load);
 
 /**
  * @brief Frees a station node and its children.
@@ -48,7 +48,7 @@ void free_station_node(StationNode *node);
  * @param id The id of the station.
  * @return The station node or NULL if not found.
  */
-StationNode *get_station_node(StationNode *root, long id);
+StationNode *get_station_node(StationNode *root, int id);
 
 /**
  * @brief Pretty print the AVL tree.

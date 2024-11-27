@@ -23,8 +23,8 @@ typedef struct parsed_data {
     int lv_station;
     int company;
     int individual;
-    long capacity;
-    long load;
+    long long capacity;
+    long long load;
 } ParsedData;
 
 /**

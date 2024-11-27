@@ -4,7 +4,7 @@
 #include <maths.h>
 #include <stdio.h>
 
-StationNode *create_station_node(int id, long capacity, long load) {
+StationNode *create_station_node(int id, long long capacity, long long load) {
     StationNode *node = malloc(sizeof(StationNode));
     if (node == NULL) return NULL;
 
@@ -17,7 +17,7 @@ StationNode *create_station_node(int id, long capacity, long load) {
     return node;
 }
 
-StationNode *insert_station_node(StationNode *root, int id, long capacity, long load) {
+StationNode *insert_station_node(StationNode *root, int id, long long capacity, long long load) {
     if (root == NULL) return create_station_node(id, capacity, load);
 
     if (id < root->id) {
@@ -62,7 +62,7 @@ void free_station_node(StationNode *node) {
     free(node);
 }
 
-StationNode *get_station_node(StationNode *root, long id) {
+StationNode *get_station_node(StationNode *root, int id) {
     if (root == NULL) return NULL;
 
     if (id < root->id) {
@@ -80,7 +80,7 @@ void pretty_print_avl(StationNode *node, int depth) {
     pretty_print_avl(node->right, depth + 1);
 
     for (int i = 0; i < depth; i++) printf("    ");
-    printf("%d (%ld, %ld)\n", node->id, node->capacity, node->load);
+    printf("%d (%lld, %lld)\n", node->id, node->capacity, node->load);
 
     pretty_print_avl(node->left, depth + 1);
 }

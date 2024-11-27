@@ -4,7 +4,16 @@
 #include <stdio.h>
 
 void print_parsed_data(ParsedData* parsedData) {
-    printf("Parsed Data %d %d %d %d %d %d %ld %ld\n", parsedData->power_plant, parsedData->hvb_station, parsedData->hva_station, parsedData->lv_station, parsedData->company, parsedData->individual, parsedData->capacity, parsedData->load);
+    printf("Parsed Data %d %d %d %d %d %d %lld %lld\n", parsedData->power_plant, parsedData->hvb_station, parsedData->hva_station, parsedData->lv_station, parsedData->company, parsedData->individual, parsedData->capacity, parsedData->load);
+}
+
+void strip_newline(char* str) {
+    if (str == NULL) return;
+
+    size_t len = strlen(str);
+    if (len > 0 && str[len - 1] == '\n') {
+        str[len - 1] = '\0';
+    }
 }
 
 StationNode* process_csv_file(ApplicationSettings* settings) {
@@ -17,6 +26,7 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
     fgets(line, sizeof(line), file);
 
     while (fgets(line, 1024, file)) {
+        strip_newline(line);
         ParsedData *data = parse_csv_line(settings, line);
         if (data == NULL) continue;
 
@@ -36,6 +46,7 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
     fgets(line, sizeof(line), file);
 
     while (fgets(line, 1024, file)) {
+        strip_newline(line);
         ParsedData *data = parse_csv_line(settings, line);
         if (data == NULL) continue;
 
@@ -58,17 +69,22 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line) {
     ParsedData *data = malloc(sizeof(ParsedData));
     if (data == NULL) return NULL;
 
-    char *token = strtok(line, settings->delimiter);
+    char *token;
     int field = 0;
 
-    while (token != NULL && field < 8) {
+    token = strtok(line, ";");
+
+    while (token != NULL) {
         char* value = strcmp(token, "-") == 0 ? NULL : strdup(token);
 
-        long valueInt;
+        int valueInt;
+        long long valueLong;
         if (value != NULL) {
             valueInt = atol(value);
+            valueLong = atoll(value);
         } else {
             valueInt = -1;
+            valueLong = -1;
         }
 
         switch (field) {
@@ -78,16 +94,16 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line) {
             case 3: data->lv_station = valueInt; break;
             case 4: data->company = valueInt; break;
             case 5: data->individual = valueInt; break;
-            case 6: data->capacity = valueInt; break;
-            case 7: data->load = valueInt; break;
+            case 6: data->capacity = valueLong; break;
+            case 7: data->load = valueLong; break;
+            default:
+                break;
         }
 
-        free(value);
         token = strtok(NULL, settings->delimiter);
         field++;
     }
 
-    print_parsed_data(data);
     return data;
 }
 
