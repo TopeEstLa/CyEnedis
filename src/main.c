@@ -21,6 +21,14 @@ int main(int argc, char *argv[]) {
 
     print_application_settings(settings);
     StationNode* node = process_csv_file(settings);
+    if (node == NULL) {
+        printf("Error processing file\n");
+        free_application_settings(settings);
+        return 1;
+    }
+
     pretty_print_avl(node, 0);
+
+
     return 0;
 }

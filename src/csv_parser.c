@@ -20,12 +20,13 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
     FILE *file = fopen(settings->filename, "r");
     if (file == NULL) return NULL;
 
+    int max_line_length = 3024;
     char line[3024];
     StationNode *root = NULL;
 
     fgets(line, sizeof(line), file);
 
-    while (fgets(line, 1024, file)) {
+    while (fgets(line, max_line_length, file)) {
         strip_newline(line);
         ParsedData *data = parse_csv_line(settings, line);
         if (data == NULL) continue;
@@ -45,7 +46,7 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
     rewind(file);
     fgets(line, sizeof(line), file);
 
-    while (fgets(line, 1024, file)) {
+    while (fgets(line, max_line_length, file)) {
         strip_newline(line);
         ParsedData *data = parse_csv_line(settings, line);
         if (data == NULL) continue;
