@@ -51,6 +51,13 @@ void free_station_node(StationNode *node);
 StationNode *get_station_node(StationNode *root, long id);
 
 /**
+ * @brief Pretty print the AVL tree.
+ * @param node The root of the AVL tree.
+ * @param depth The depth of the node.
+ */
+void pretty_print_avl(StationNode *node, int depth);
+
+/**
  * @brief Get the height of the node.
  * @param node The node.
  * @return The height of the node.

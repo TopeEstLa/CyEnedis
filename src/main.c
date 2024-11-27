@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
     }
 
     print_application_settings(settings);
-    process_csv_file(settings);
+    StationNode* node = process_csv_file(settings);
+    pretty_print_avl(node, 0);
     return 0;
 }

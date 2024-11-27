@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <maths.h>
+#include <stdio.h>
 
 StationNode *create_station_node(int id, long capacity, long load) {
     StationNode *node = malloc(sizeof(StationNode));
@@ -71,6 +72,17 @@ StationNode *get_station_node(StationNode *root, long id) {
     } else {
         return root;
     }
+}
+
+void pretty_print_avl(StationNode *node, int depth) {
+    if (node == NULL) return;
+
+    pretty_print_avl(node->right, depth + 1);
+
+    for (int i = 0; i < depth; i++) printf("    ");
+    printf("%d (%ld, %ld)\n", node->id, node->capacity, node->load);
+
+    pretty_print_avl(node->left, depth + 1);
 }
 
 int get_height(StationNode *node) {

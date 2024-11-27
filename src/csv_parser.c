@@ -21,7 +21,8 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
         if (data == NULL) continue;
 
         if (should_process_station(data, settings)) {
-            root = insert_station_node(root, data->lv_station, data->capacity, data->load);
+            int station = get_parent_station(data, settings);
+            root = insert_station_node(root, station, data->capacity, data->load);
             if (root == NULL) { // TODO: Handle error
                 fclose(file);
                 return NULL;
