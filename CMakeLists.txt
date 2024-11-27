@@ -22,4 +22,6 @@ add_executable(CyEnedis
         include/csv_parser.h
         src/csv_parser.c
         include/result_generator.h
-        src/result_generator.c)
+        src/result_generator.c
+        include/csv_output.h
+        src/csv_output.c)

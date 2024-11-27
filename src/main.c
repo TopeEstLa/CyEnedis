@@ -4,6 +4,7 @@
 #include <csv_parser.h>
 #include <result_generator.h>
 #include <time.h>
+#include <csv_output.h>
 
 long long current_time_in_ms() {
     struct timespec ts;
@@ -40,7 +41,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    pretty_print_avl(node, 0);
+  //  pretty_print_avl(node, 0);
     long long processing_time = current_time_in_ms();
     printf("Processing elapsed time: %lld ms\n", processing_time - setting_time);
 
@@ -65,6 +66,22 @@ int main(int argc, char *argv[]) {
     long long sort_time = current_time_in_ms();
     printf("Sort elapsed time: %lld ms\n", sort_time - collect_time);
 
+    char* filename = generate_output_filename(settings);
+    if (filename == NULL) {
+        printf("Error generating filename\n");
+        free_application_settings(settings);
+        for (int i = 0; i < count; i++) {
+            free_station_result(results[i]);
+        }
+        free(results);
+        free_station_node(node);
+        return 1;
+    }
+
+    write_csv(filename, results, count);
+    long long write_time = current_time_in_ms();
+    printf("Write elapsed time: %lld ms\n", write_time - sort_time);
+
     for (int i = 0; i < count; i++) {
         free_station_result(results[i]);
     }
@@ -72,10 +89,18 @@ int main(int argc, char *argv[]) {
 
     free_station_node(node);
     free_application_settings(settings);
+    free(filename);
+    free(settings);
+    free(node);
 
     long long end_time = current_time_in_ms();
 
     printf("Elapsed time: %lld ms\n", end_time - start_time);
+
+    while (1) {
+        // Infinite loop to keep the program running
+    }
+
 
     return 0;
 }
