@@ -73,7 +73,7 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line) {
     char *token;
     int field = 0;
 
-    token = strtok(line, ";");
+    token = strtok(line, settings->delimiter);
 
     while (token != NULL) {
         char* value = strcmp(token, "-") == 0 ? NULL : strdup(token);
@@ -101,6 +101,7 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line) {
                 break;
         }
 
+        free(value);
         token = strtok(NULL, settings->delimiter);
         field++;
     }

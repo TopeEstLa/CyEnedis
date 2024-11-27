@@ -13,7 +13,7 @@
 typedef struct station_result {
     int station_id;
     long long capacity;
-    long long consumption;
+    long long load;
     double ratio;
 } StationResult;
 
