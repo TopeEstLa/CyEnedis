@@ -89,18 +89,10 @@ int main(int argc, char *argv[]) {
 
     free_station_node(node);
     free_application_settings(settings);
-    free(filename);
-    free(settings);
-    free(node);
 
     long long end_time = current_time_in_ms();
 
     printf("Elapsed time: %lld ms\n", end_time - start_time);
-
-    while (1) {
-        // Infinite loop to keep the program running
-    }
-
 
     return 0;
 }

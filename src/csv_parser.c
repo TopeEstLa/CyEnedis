@@ -76,7 +76,19 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line) {
     token = strtok(line, settings->delimiter);
 
     while (token != NULL) {
-        char* value = strcmp(token, "-") == 0 ? NULL : strdup(token);
+        char* value;
+
+        if (strcmp(token, "-") == 0) {
+            value = NULL;
+        } else {
+            value = malloc(strlen(token) + 1);
+            if (value == NULL) {
+                free(data);
+                return NULL;
+            }
+
+            strcpy(value, token);
+        }
 
         int valueInt;
         long long valueLong;
