@@ -7,14 +7,22 @@
 #include <csv_output.h>
 #include <qsort.h>
 
+#include <application_test.h>
+
 long long current_time_in_ms() {
     struct timespec ts;
     clock_gettime(1, &ts); // Use CLOCK_MONOTONIC to avoid time jumps
     return (ts.tv_sec * 1000LL) + (ts.tv_nsec / 1000000); // Convert to milliseconds
 }
 
+bool isTest = true;
 
 int main(int argc, char *argv[]) {
+    if (isTest) {
+        test_settings_parser();
+        return 0;
+    }
+
     long long start_time = current_time_in_ms();
 
     ApplicationSettings *settings = parse_application_settings(argc, argv);

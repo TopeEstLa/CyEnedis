@@ -11,12 +11,13 @@ ApplicationSettings *parse_application_settings(int argc, char *argv[]) {
     }
 
     if (argc < 4 || argc > 5) {
+        free(settings);
         return NULL;
     }
 
     settings->filename = malloc(strlen(argv[1]) + 1);
     if (settings->filename == NULL) {
-        free_application_settings(settings);
+        free(settings);
         return NULL;
     }
 
@@ -41,6 +42,11 @@ ApplicationSettings *parse_application_settings(int argc, char *argv[]) {
     settings->consumer_type = consumer_type;
 
     if (argc == 5) {
+        if (strspn(argv[4], "0123456789") != strlen(argv[4])) {
+            free_application_settings(settings);
+            return NULL;
+        }
+
         settings->power_plant = atoi(argv[4]);
     } else {
         settings->power_plant = -1;
@@ -72,7 +78,7 @@ bool validate_application_settings(ApplicationSettings *settings) {
     }
 
     if (settings->station_type == STATION_HVA &&
-        (settings->consumer_type == CONSUMER_COMPANY || settings->consumer_type == CONSUMER_ALL)) {
+        (settings->consumer_type == CONSUMER_INDIVIDUAL || settings->consumer_type == CONSUMER_ALL)) {
         return false;
     }
 

@@ -26,4 +26,6 @@ add_executable(CyEnedis
         include/csv_output.h
         src/csv_output.c
         include/qsort.h
-        src/qsort.c)
+        src/qsort.c
+        include/application_test.h
+        src/application_test.c)
