@@ -23,7 +23,7 @@ int load_partition(StationResult **results, int low, int high) {
     long long pivot = results[high]->load;
     int i = low - 1;
     for (int j = low; j < high; j++) {
-        if (results[j]->load < pivot) {
+        if (results[j]->load > pivot) {
             i++;
             swap(&results[i], &results[j]);
         }

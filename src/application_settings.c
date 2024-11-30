@@ -156,3 +156,48 @@ char *generate_output_filename(ApplicationSettings *settings) {
 
     return filename;
 }
+
+char* generate_minmax_output_filename(ApplicationSettings* settings) {
+    char *filename = malloc(100 * sizeof(char));
+    if (filename == NULL) return NULL;
+
+    char *station_type;
+    switch (settings->station_type) {
+        case STATION_HVB:
+            station_type = "hvb";
+            break;
+        case STATION_HVA:
+            station_type = "hva";
+            break;
+        case STATION_LV:
+            station_type = "lv";
+            break;
+        default:
+            station_type = "UNKNOWN";
+            break;
+    }
+
+    char *consumer_type;
+    switch (settings->consumer_type) {
+        case CONSUMER_INDIVIDUAL:
+            consumer_type = "indiv";
+            break;
+        case CONSUMER_COMPANY:
+            consumer_type = "comp";
+            break;
+        case CONSUMER_ALL:
+            consumer_type = "all";
+            break;
+        default:
+            consumer_type = "UNKNOWN";
+            break;
+    }
+
+    if (settings->power_plant == -1) {
+        sprintf(filename, "%s_%s_minmax.csv", station_type, consumer_type);
+    } else {
+        sprintf(filename, "%s_%s_%d_minmax.csv", station_type, consumer_type, settings->power_plant);
+    }
+
+    return filename;
+}

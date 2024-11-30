@@ -91,10 +91,35 @@ int main(int argc, char *argv[]) {
     long long write_time = current_time_in_ms();
     printf("Write elapsed time: %lld ms\n", write_time - sort_time);
 
+    if (settings->station_type == STATION_LV && settings->consumer_type == CONSUMER_ALL) {
+        printf("Case of LV and all consumers generating minmax file\n");
+        qsort_by_load(results, count);
+        long long load_sort_time = current_time_in_ms();
+        printf("Load sort elapsed time: %lld ms\n", load_sort_time - write_time);
+
+        char *minmax_filename = generate_minmax_output_filename(settings);
+        if (minmax_filename == NULL) {
+            printf("Error generating minmax filename\n");
+            free_application_settings(settings);
+            for (int i = 0; i < count; i++) {
+                free_station_result(results[i]);
+            }
+            free(results);
+            free_station_node(node);
+            free(filename);
+            return 1;
+        }
+
+        write_min_max_csv(minmax_filename, results, count);
+        long long minmax_write_time = current_time_in_ms();
+        printf("Minmax write elapsed time: %lld ms\n", minmax_write_time - load_sort_time);
+    }
+
     for (int i = 0; i < count; i++) {
         free_station_result(results[i]);
     }
     free(results);
+    free(filename);
 
     free_station_node(node);
     free_application_settings(settings);

@@ -103,4 +103,11 @@ bool validate_application_settings(ApplicationSettings *settings);
  */
 char* generate_output_filename(ApplicationSettings* settings);
 
+/**
+ * @brief Generate the minmax output filename based on the application settings
+ * @param settings The application settings
+ * @return The generated filename or NULL if an error occurred
+ */
+char* generate_minmax_output_filename(ApplicationSettings* settings);
+
 #endif //APPLICATION_SETTINGS_H

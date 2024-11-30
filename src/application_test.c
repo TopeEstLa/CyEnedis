@@ -161,7 +161,7 @@ StationResult** test_qsort(StationResult** result, int count) {
 
     qsort_by_load(result, count);
     for (int i = 0; i < count - 1; i++) {
-        assert(result[i]->load <= result[i + 1]->load);
+        assert(result[i]->load >= result[i + 1]->load);
     }
 
     return result;
