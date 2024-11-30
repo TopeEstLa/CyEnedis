@@ -29,14 +29,14 @@ int main(int argc, char *argv[]) {
     if (settings == NULL) {
         printf("Invalid settings\n");
         printf("Usage: %s <filename> <station_type> <consumer_type> [power_plant]\n", argv[0]);
-        return 1;
+        return 2;
     }
 
     if (!validate_application_settings(settings)) {
         printf("Invalid settings\n");
         printf("Usage: %s <filename> <station_type> <consumer_type> [power_plant]\n", argv[0]);
         free_application_settings(settings);
-        return 1;
+        return 3;
     }
 
     print_application_settings(settings);
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     if (node == NULL) {
         printf("Error processing file\n");
         free_application_settings(settings);
-        return 1;
+        return 4;
     }
 
     long long processing_time = current_time_in_ms();
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
         printf("Error collecting results\n");
         free_application_settings(settings);
         free_station_node(node);
-        return 1;
+        return 5;
     }
 
     printf("Results:\n");
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
         }
         free(results);
         free_station_node(node);
-        return 1;
+        return 6;
     }
 
     write_csv(filename, results, count);
@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
             free(results);
             free_station_node(node);
             free(filename);
-            return 1;
+            return 7;
         }
 
         write_min_max_csv(minmax_filename, results, count);
