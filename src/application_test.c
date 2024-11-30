@@ -1,26 +1,65 @@
 #include <application_test.h>
 
-#include <string.h>
-#include <assert.h>
+#include <stdio.h>
 
-#include <application_settings.h>
-#include <csv_parser.h>
-#include <result_generator.h>
-#include <qsort.h>
+int test_global() {
+    printf("Starting tests\n");
+    ApplicationSettings* settingsParser = test_settings_parser();
+    if (settingsParser == NULL) {
+        printf("[Test] Settings parser failed\n");
+        return 1;
+    }
+    printf("[Test] Settings parser passed\n");
 
-int test_settings_parser() {
+    StationNode* node = test_avl_build(settingsParser);
+    if (node == NULL) {
+        printf("[Test] AVL build failed\n");
+        return 1;
+    }
+    printf("[Test] AVL build passed\n");
+
+    int count = 0;
+
+    StationResult** result = test_output(node, &count);
+    if (result == NULL) {
+        printf("[Test] Output failed\n");
+        return 1;
+    }
+    printf("[Test] Output passed\n");
+
+
+    StationResult** sorted_result = test_qsort(result, count);
+    if (sorted_result == NULL) {
+        printf("[Test] Qsort failed\n");
+        return 1;
+    }
+    printf("[Test] Qsort passed\n");
+    printf("All tests passed\n");
+    printf("Cleaning up\n");
+
+    for (int i = 0; i < count; i++) {
+        free_station_result(sorted_result[i]);
+    }
+    free(sorted_result);
+    free_station_node(node);
+    free_application_settings(settingsParser);
+    printf("Clean up done\n");
+    return 0;
+}
+
+ApplicationSettings* test_settings_parser() {
     //Testing normal case
-    char *argv[] = {"test", "test.csv", "lv", "all"};
+    char *argv[] = {"test", "test-data.csv", "lv", "all"};
     ApplicationSettings *settings = parse_application_settings(4, argv);
     assert(settings != NULL);
 
-    assert(strcmp(settings->filename, "test.csv") == 0);
+    assert(strcmp(settings->filename, "test-data.csv") == 0);
     assert(strcmp(settings->delimiter, DEFAULT_DELIMITER) == 0);
     assert(settings->power_plant == -1);
     assert(settings->station_type == STATION_LV);
     assert(settings->consumer_type == CONSUMER_ALL);
     assert(validate_application_settings(settings));
-    free_application_settings(settings);
+   // free_application_settings(settings);
 
     char* argv1[] = {"test", "test.csv", "hvb", "comp"};
     ApplicationSettings *settings1 = parse_application_settings(4, argv1);
@@ -71,6 +110,59 @@ int test_settings_parser() {
     ApplicationSettings *settings5 = parse_application_settings(4, argv5);
     assert(settings5 == NULL);
 
+    return settings;
+}
 
-    return 0;
+StationNode* test_avl_build(ApplicationSettings* settings) {
+    if (settings == NULL) {
+        return NULL;
+    }
+
+    StationNode* root = NULL;
+
+    root = process_csv_file(settings);
+    assert(root != NULL);
+
+    //check if data is correct
+    StationNode* node_to_find = get_station_node(root, 1);
+    assert(node_to_find != NULL);
+    assert(node_to_find->load == 171359043);
+    assert(node_to_find->capacity == 241999040);
+
+
+    return root;
+}
+
+StationResult** test_output(StationNode* node, int* count) {
+    if (node == NULL) {
+        return NULL;
+    }
+
+    StationResult** result = collect_results(node, count);
+    assert(result != NULL);
+
+    for (int i = 0; i < *count; i++) {
+        assert(result[i] != NULL);
+    }
+
+    for (int i = 0; i < *count - 1; i++) {
+        assert(result[i]->station_id <= result[i + 1]->station_id);
+    }
+
+    return result;
+}
+
+StationResult** test_qsort(StationResult** result, int count) {
+    qsort_by_capacity(result, count);
+
+    for (int i = 0; i < count - 1; i++) {
+        assert(result[i]->capacity <= result[i + 1]->capacity);
+    }
+
+    qsort_by_load(result, count);
+    for (int i = 0; i < count - 1; i++) {
+        assert(result[i]->load <= result[i + 1]->load);
+    }
+
+    return result;
 }

@@ -7,7 +7,7 @@ void swap(StationResult **a, StationResult **b) {
 }
 
 int capacity_partition(StationResult **results, int low, int high) {
-    int pivot = results[high]->capacity;
+    long long pivot = results[high]->capacity;
     int i = low - 1;
     for (int j = low; j < high; j++) {
         if (results[j]->capacity < pivot) {
@@ -20,7 +20,7 @@ int capacity_partition(StationResult **results, int low, int high) {
 }
 
 int load_partition(StationResult **results, int low, int high) {
-    int pivot = results[high]->load;
+    long long pivot = results[high]->load;
     int i = low - 1;
     for (int j = low; j < high; j++) {
         if (results[j]->load < pivot) {

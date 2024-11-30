@@ -15,11 +15,11 @@ long long current_time_in_ms() {
     return (ts.tv_sec * 1000LL) + (ts.tv_nsec / 1000000); // Convert to milliseconds
 }
 
-bool isTest = true;
+bool isTest = false;
 
 int main(int argc, char *argv[]) {
     if (isTest) {
-        test_settings_parser();
+        test_global();
         return 0;
     }
 
@@ -43,14 +43,13 @@ int main(int argc, char *argv[]) {
     long long setting_time = current_time_in_ms();
     printf("Settings elapsed time: %lld ms\n", setting_time - start_time);
 
-    StationNode* node = process_csv_file(settings);
+    StationNode *node = process_csv_file(settings);
     if (node == NULL) {
         printf("Error processing file\n");
         free_application_settings(settings);
         return 1;
     }
 
-  //  pretty_print_avl(node, 0);
     long long processing_time = current_time_in_ms();
     printf("Processing elapsed time: %lld ms\n", processing_time - setting_time);
 
@@ -69,14 +68,14 @@ int main(int argc, char *argv[]) {
     long long collect_time = current_time_in_ms();
     printf("Collect elapsed time: %lld ms\n", collect_time - processing_time);
 
-   // sort_by_capacity(results, count);
+    // sort_by_capacity(results, count);
     qsort_by_capacity(results, count);
     printf("Results sorted by capacity:\n");
     print_station_result(results, count);
     long long sort_time = current_time_in_ms();
     printf("Sort elapsed time: %lld ms\n", sort_time - collect_time);
 
-    char* filename = generate_output_filename(settings);
+    char *filename = generate_output_filename(settings);
     if (filename == NULL) {
         printf("Error generating filename\n");
         free_application_settings(settings);
