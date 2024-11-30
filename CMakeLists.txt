@@ -24,4 +24,6 @@ add_executable(CyEnedis
         include/result_generator.h
         src/result_generator.c
         include/csv_output.h
-        src/csv_output.c)
+        src/csv_output.c
+        include/qsort.h
+        src/qsort.c)

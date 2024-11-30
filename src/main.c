@@ -5,6 +5,7 @@
 #include <result_generator.h>
 #include <time.h>
 #include <csv_output.h>
+#include <qsort.h>
 
 long long current_time_in_ms() {
     struct timespec ts;
@@ -60,7 +61,8 @@ int main(int argc, char *argv[]) {
     long long collect_time = current_time_in_ms();
     printf("Collect elapsed time: %lld ms\n", collect_time - processing_time);
 
-    sort_by_capacity(results, count);
+   // sort_by_capacity(results, count);
+    qsort_by_capacity(results, count);
     printf("Results sorted by capacity:\n");
     print_station_result(results, count);
     long long sort_time = current_time_in_ms();
@@ -92,6 +94,13 @@ int main(int argc, char *argv[]) {
 
     long long end_time = current_time_in_ms();
 
+    //clear terminal
+    printf("\033[H\033[J");
+    printf("Resume:\n");
+    printf("Settings elapsed time: %lld ms\n", setting_time - start_time);
+    printf("Processing elapsed time: %lld ms\n", processing_time - setting_time);
+    printf("Collect elapsed time: %lld ms\n", collect_time - processing_time);
+    printf("Sort elapsed time: %lld ms\n", sort_time - collect_time);
     printf("Elapsed time: %lld ms\n", end_time - start_time);
 
     return 0;

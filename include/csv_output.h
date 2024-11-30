@@ -4,6 +4,9 @@
 #include <result_generator.h>
 #include <application_settings.h>
 
+#define FIST_MAX 10
+#define LAST_MIN 10
+
 /**
  * @brief Write the results to a CSV file.
  * @param filename name of the file
@@ -11,5 +14,7 @@
  * @param count row count
  */
 void write_csv(char *filename, StationResult **results, int count);
+
+void write_min_max_csv(char *filename, StationResult **results, int count);
 
 #endif //CSV_OUTPUT_H
