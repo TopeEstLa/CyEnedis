@@ -14,6 +14,16 @@
 bool isTest = false;
 
 int main(int argc, char *argv[]) {
+    char* testenv = getenv("RUNNING_TEST");
+    if (testenv != NULL && strcmp(testenv, "1") == 0) {
+        isTest = true;
+    }
+
+    char* benchmarkenv = getenv("RUNNING_BENCHMARK");
+    if (benchmarkenv != NULL && strcmp(benchmarkenv, "1") == 0) {
+        set_benchmark_enabled(true);
+    }
+
     if (isTest) {
         test_global();
         return 0;

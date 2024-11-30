@@ -1,7 +1,7 @@
 #include <benchmark.h>
 #include <stdbool.h>
 
-bool enable_benchmark = true;
+bool enable_benchmark = false;
 
 long long start_time = 0;
 long long setting_time = 0;
@@ -15,6 +15,10 @@ long long current_time_in_ms() {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return (ts.tv_sec * 1000LL) + (ts.tv_nsec / 1000000);
+}
+
+void set_benchmark_enabled(bool enabled) {
+    enable_benchmark = enabled;
 }
 
 void mark_benchmark_start() {

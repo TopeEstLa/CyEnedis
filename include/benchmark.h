@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <stdbool.h>
+
+void set_benchmark_enabled(bool enabled);
 
 long long current_time_in_ms();
 
