@@ -28,4 +28,7 @@ add_executable(CyEnedis
         include/qsort.h
         src/qsort.c
         include/application_test.h
-        src/application_test.c)
+        src/application_test.c
+        include/benchmark.h
+        src/benchmark.c
+)
