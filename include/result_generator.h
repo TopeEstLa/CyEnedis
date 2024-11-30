@@ -55,6 +55,7 @@ StationResult** collect_results(StationNode* root, int* count);
 void collect_results_helper(StationNode *node, List *list);
 
 /**
+ * @Deprecated
  * Bubble sort to sort the results by capacity
  * @param results
  * @param count
