@@ -13,7 +13,7 @@ long long end_time = 0;
 
 long long current_time_in_ms() {
     struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
+    clock_gettime(1, &ts);
     return (ts.tv_sec * 1000LL) + (ts.tv_nsec / 1000000);
 }
 

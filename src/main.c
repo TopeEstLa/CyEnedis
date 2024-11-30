@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     mark_benchmark_start();
     ApplicationSettings *settings = parse_application_settings(argc, argv);
     if (settings == NULL) {
-        printf("Invalid settings\n");
+        printf("Could not parse settings\n");
         printf("Usage: %s <filename> <station_type> <consumer_type> [power_plant]\n", argv[0]);
         return 2;
     }
