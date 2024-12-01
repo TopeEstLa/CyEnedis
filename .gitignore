@@ -7,3 +7,4 @@ deps/
 .LSOverride
 .vscode/
 c-wire.sh
+tests/
