@@ -29,13 +29,17 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
     while (fgets(line, max_line_length, file)) {
         strip_newline(line);
         ParsedData *data = parse_csv_line(settings, line);
-        if (data == NULL) continue;
+        if (data == NULL) {
+            printf("Failed to parse line %s\n", line);
+            continue;
+        }
 
         if (should_process_station(data, settings)) {
             int station = get_parent_station(data, settings);
             root = insert_station_node(root, station, data->capacity, data->load);
-            if (root == NULL) { // TODO: Handle error
+            if (root == NULL) {
                 fclose(file);
+                free(data);
                 return NULL;
             }
         }
@@ -49,13 +53,22 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
     while (fgets(line, max_line_length, file)) {
         strip_newline(line);
         ParsedData *data = parse_csv_line(settings, line);
-        if (data == NULL) continue;
+        if (data == NULL) {
+            printf("Failed to parse line %s\n", line);
+            continue;
+        }
 
         if (should_process_consumer(data, settings)) {
             int parent_station = get_parent_station(data, settings);
-            if (parent_station == -1) continue; //TODO: Handle error
+            if (parent_station == -1) {
+                printf("Failed to find parent station for consumer %d error during parsing ? or csv file mis created ?\n", data->company);
+                continue;
+            }
             StationNode* node = get_station_node(root, parent_station);
-            if (node == NULL) continue; //TODO: Handle error
+            if (node == NULL) {
+                printf("Failed to find station %d error during parsing ? or csv file mis created ?\n", parent_station);
+                continue;
+            }
             node->load += data->load;
         }
 
