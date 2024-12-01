@@ -1,59 +1,68 @@
 #!/bin/bash
 
 EXEC_NAME="CyEnedis"
+TEST_FILE="test-data.csv"
 
-./$EXEC_NAME test-data.csv hvb comp
+./$EXEC_NAME $TEST_FILE hvb comp
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE hvb comp"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi
 
-./$EXEC_NAME test-data.csv hva comp
+./$EXEC_NAME $TEST_FILE hva comp
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE hva comp"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi
 
-./$EXEC_NAME test-data.csv lv comp
+./$EXEC_NAME $TEST_FILE lv comp
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE lv comp"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi
 
-./$EXEC_NAME test-data.csv lv indiv
+./$EXEC_NAME $TEST_FILE lv indiv
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE lv indiv"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi
 
-./$EXEC_NAME test-data.csv lv all
+./$EXEC_NAME $TEST_FILE lv all
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE lv all"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi
 
-./$EXEC_NAME test-data.csv lv all 1
+./$EXEC_NAME $TEST_FILE lv all 1
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE lv all 1"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi
 
-./$EXEC_NAME test-data.csv hvb comp 2
+./$EXEC_NAME $TEST_FILE hvb comp 2
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE hvb comp 2"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi
 
-./$EXEC_NAME test-data.csv hva comp 3
+./$EXEC_NAME $TEST_FILE hva comp 3
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
+    echo "$EXEC_NAME $TEST_FILE hva comp 3"
     echo "Test failed exit code $STATUS_CODE"
     exit 1
 fi

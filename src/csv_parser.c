@@ -168,6 +168,7 @@ bool should_process_station(ParsedData *data, ApplicationSettings *settings) {
 }
 
 bool should_process_consumer(ParsedData *data, ApplicationSettings *settings) {
+    if (settings->power_plant != -1 && data->power_plant != settings->power_plant) return false;
     if (data->load == 0) return false;
 
     switch (settings->consumer_type) {
