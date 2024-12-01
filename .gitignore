@@ -6,5 +6,4 @@ deps/
 .AppleDouble
 .LSOverride
 .vscode/
-c-wire.sh
 tests/
