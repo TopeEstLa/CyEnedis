@@ -61,7 +61,7 @@ StationNode* process_csv_file(ApplicationSettings* settings) {
         if (should_process_consumer(data, settings)) {
             int parent_station = get_parent_station(data, settings);
             if (parent_station == -1) {
-                printf("Failed to find parent station for consumer %d error during parsing ? or csv file mis created ?\n", data->company);
+                //Normal if we need to check hvb station and we have a consumer hooked in a lv station we need to skip it
                 continue;
             }
             StationNode* node = get_station_node(root, parent_station);
