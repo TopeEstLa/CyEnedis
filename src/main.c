@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
         return 3;
     }
 
-    print_application_settings(settings);
+   // print_application_settings(settings);
     mark_setting_time();
 
     StationNode *node = process_csv_file(settings);
@@ -65,13 +65,13 @@ int main(int argc, char *argv[]) {
         return 5;
     }
 
-    printf("Results:\n");
-    print_station_result(results, count);
+    //printf("Results:\n");
+    //print_station_result(results, count);
     mark_collect_time();
 
     qsort_by_capacity(results, count);
-    printf("Results sorted by capacity:\n");
-    print_station_result(results, count);
+    //printf("Results sorted by capacity:\n");
+    //print_station_result(results, count);
     mark_sort_time();
 
     char *filename = generate_output_filename(settings);
