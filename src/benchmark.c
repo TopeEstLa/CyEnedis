@@ -58,6 +58,7 @@ void mark_write_time() {
 
 void benchmark_result() {
     if (!enable_benchmark) return;
+    printf("\033[H\033[J");
     printf("======================BENCHMARK======================\n");
     printf("Settings elapsed time: %lld ms\n", setting_time - start_time);
     printf("Processing elapsed time: %lld ms\n", processing_time - setting_time);

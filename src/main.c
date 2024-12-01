@@ -119,7 +119,6 @@ int main(int argc, char *argv[]) {
     free_application_settings(settings);
 
     //clear terminal
-    printf("\033[H\033[J");
     mark_benchmark_end();
     benchmark_result();
 

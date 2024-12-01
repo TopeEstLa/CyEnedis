@@ -2,35 +2,35 @@
 
 EXEC_NAME="CyEnedis"
 
-./$EXEC_NAME test-data hvb comp
+./$EXEC_NAME test-data.csv hvb comp
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
     echo "Test failed"
     exit 1
 fi
 
-./$EXEC_NAME test-data hva comp
+./$EXEC_NAME test-data.csv hva comp
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
     echo "Test failed"
     exit 1
 fi
 
-./$EXEC_NAME test-data lv comp
+./$EXEC_NAME test-data.csv lv comp
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
     echo "Test failed"
     exit 1
 fi
 
-./$EXEC_NAME test-data lv indiv
+./$EXEC_NAME test-data.csv lv indiv
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
     echo "Test failed"
     exit 1
 fi
 
-./$EXEC_NAME test-data lv all
+./$EXEC_NAME test-data.csv lv all
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
     echo "Test failed"
