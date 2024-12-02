@@ -97,11 +97,11 @@ START_TIME=$(date +%s)
 if [ $POWER_PLANT_ID == -1 ]; then
     echo "./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE"
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE
-    OUTPUT_FILE_NAME="$STATION_TYPE_$CONSUMER_TYPE.csv"
+    OUTPUT_FILE_NAME="${STATION_TYPE}_${CONSUMER_TYPE}"
 else
     echo "./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE $POWER_PLANT_ID"
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE $POWER_PLANT_ID
-    OUTPUT_FILE_NAME="$STATION_TYPE_$CONSUMER_TYPE_$POWER_PLANT_ID.csv"
+    OUTPUT_FILE_NAME="${STATION_TYPE}_${CONSUMER_TYPE}_${POWER_PLANT_ID}"
 fi
 
 END_TIME=$(date +%s)
@@ -114,6 +114,8 @@ if [ $STATUS_CODE == 0 ]; then
 else
     echo "Le processus a échoué en $ELAPSED_TIME secondes (statut : $STATUS_CODE)"
 fi
+
+echo "Output file: $OUTPUT_FILE_NAME"
 
 if [ ${STATION_TYPE,,} != "lv" ] || [ ${CONSUMER_TYPE,,} != "all" ]; then
   exit 1
@@ -136,6 +138,6 @@ gnuplot -persist << EOF
   set ylabel 'Consumption (kWh)'
   set xlabel 'Consumer ID'
   set datafile separator ","
-  plot '$OUTPUT_FILE_NAME' using 2:xtic(1) with boxes title 'Consumption'
+  plot '${OUTPUT_FILE_NAME}_minmax.csv' using 2:xtic(1) with boxes title 'Consumption'
 EOF
 
