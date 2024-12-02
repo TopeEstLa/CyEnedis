@@ -50,6 +50,7 @@ CSV_FILE=$1
 STATION_TYPE=$2
 CONSUMER_TYPE=$3
 POWER_PLANT_ID=$4
+OUTPUT_FILE_NAME=""
 
 if [ $STATION_TYPE != "hvb" ] && [ $STATION_TYPE != "hva" ] && [ $STATION_TYPE != "lv" ]; then
     echo "Station type must be (hvb, hva, lv)"
@@ -96,9 +97,11 @@ START_TIME=$(date +%s)
 if [ $POWER_PLANT_ID == -1 ]; then
     echo "./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE"
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE
+    OUTPUT_FILE_NAME="$STATION_TYPE_$CONSUMER_TYPE.csv"
 else
     echo "./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE $POWER_PLANT_ID"
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE $POWER_PLANT_ID
+    OUTPUT_FILE_NAME="$STATION_TYPE_$CONSUMER_TYPE_$POWER_PLANT_ID.csv"
 fi
 
 END_TIME=$(date +%s)
@@ -112,4 +115,27 @@ else
     echo "Le processus a échoué en $ELAPSED_TIME secondes (statut : $STATUS_CODE)"
 fi
 
+if [ ${STATION_TYPE,,} != "lv" ] || [ ${CONSUMER_TYPE,,} != "all" ]; then
+  exit 1
+fi
+
 echo "Generating graphs..."
+if [ $STATUS_CODE != 0 ]; then
+    echo "Generation script failed, skipping..."
+    exit 1
+fi
+
+
+gnuplot -persist << EOF
+  set terminal png size 1200,600
+  set output 'graphs/total_consumption.png'
+  set title 'Consumption of 10 LV lowest and higest consumers'
+  set style data histogram
+  set style fill solid
+  set xtics rotate by -45
+  set ylabel 'Consumption (kWh)'
+  set xlabel 'Consumer ID'
+  set datafile separator ","
+  plot '$OUTPUT_FILE_NAME' using 2:xtic(1) with boxes title 'Consumption'
+EOF
+
