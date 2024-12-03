@@ -104,30 +104,57 @@ prepare_and_clean_folder
 START_TIME=$(date +%s)
 
 if [ $POWER_PLANT_ID == -1 ]; then
-    echo "./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE"
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE
+    STATUS_CODE=$?
     OUTPUT_FILE_NAME="${STATION_TYPE}_${CONSUMER_TYPE}"
 else
-    echo "./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE $POWER_PLANT_ID"
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE $POWER_PLANT_ID
+    STATUS_CODE=$?
     OUTPUT_FILE_NAME="${STATION_TYPE}_${CONSUMER_TYPE}_${POWER_PLANT_ID}"
 fi
 
 END_TIME=$(date +%s)
 ELAPSED_TIME=$((END_TIME - START_TIME))
 
-STATUS_CODE=$?
-
 if [ $STATUS_CODE == 0 ]; then
-    echo "Le processus a réussi en $ELAPSED_TIME secondes (statut : $STATUS_CODE)"
+      echo "The process was successful in $ELAPSED_TIME seconds (status : $STATUS_CODE)"
 else
-    echo "Le processus a échoué en $ELAPSED_TIME secondes (statut : $STATUS_CODE)"
+      echo "The process failed in $ELAPSED_TIME seconds (status : $STATUS_CODE)"
 fi
 
-echo "Output file: $OUTPUT_FILE_NAME"
+case "$STATUS_CODE" in
+  0)
+    echo "Output file: ${OUTPUT_FILE_NAME}.csv"
+    ;;
+  2)
+    echo "Error while reading the given parameters"
+    ;;
+  3)
+    echo "Param is not valid (csv-file does not exist ?, station-type is not valid ?, consumer-type is not valid ?)"
+    ;;
+  4)
+    echo "Error while reading the file or building the AVL tree"
+    ;;
+  5)
+    echo "Error while collecting data from AVL and ordering it"
+    ;;
+  6)
+    echo "Error while writing output csv file"
+    ;;
+  7)
+    echo "Error while writing output 'minmax' csv file"
+    ;;
+  *)
+    echo "Unknown error"
+    ;;
+esac
+
+if [ $STATUS_CODE != 0 ]; then
+      exit $STATUS_CODE
+fi
 
 if [ ${STATION_TYPE,,} != "lv" ] || [ ${CONSUMER_TYPE,,} != "all" ]; then
-  exit 1
+  exit 0
 fi
 
 echo "Generating graphs..."
@@ -139,15 +166,15 @@ fi
 
 gnuplot -persist << EOF
   set terminal png size 1200,600
-  set output 'graphs/${OUTPUT_FILE_NAME}_consumption_graph.png'
-  set title 'Consumption of 10 LV lowest and higest consumers'
+  set output 'graphs/${OUTPUT_FILE_NAME}_load_graph.png'
+  set title 'Load graph of the 10 busiest and least loaded LV stations'
   set style data histogram
   set style fill solid
   set xtics rotate by -45
-  set ylabel 'Consumption (kWh)'
-  set xlabel 'Consumer ID'
+  set ylabel 'Load (kWh)'
+  set xlabel 'Station ID'
   set datafile separator ","
-  plot '${OUTPUT_FILE_NAME}_minmax.csv' using 2:xtic(1) with boxes title 'Consumption'
+  plot '${OUTPUT_FILE_NAME}_minmax.csv' using 3:xtic(1) with boxes title 'Load'
 EOF
 
-echo "Graphs generated in graphs/${OUTPUT_FILE_NAME}_consumption_graph.png"
+echo "Graphs generated in graphs/${OUTPUT_FILE_NAME}_load_graph.png"
