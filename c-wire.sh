@@ -91,7 +91,6 @@ fi
 prepare_and_clean_folder
 
 
-
 START_TIME=$(date +%s)
 
 if [ $POWER_PLANT_ID == -1 ]; then
@@ -130,7 +129,7 @@ fi
 
 gnuplot -persist << EOF
   set terminal png size 1200,600
-  set output 'graphs/total_consumption.png'
+  set output 'graphs/${OUTPUT_FILE_NAME}_consumption_graph.png'
   set title 'Consumption of 10 LV lowest and higest consumers'
   set style data histogram
   set style fill solid
@@ -141,3 +140,4 @@ gnuplot -persist << EOF
   plot '${OUTPUT_FILE_NAME}_minmax.csv' using 2:xtic(1) with boxes title 'Consumption'
 EOF
 
+echo "Graphs generated in graphs/${OUTPUT_FILE_NAME}_consumption_graph.png"

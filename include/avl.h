@@ -78,6 +78,13 @@ void update_height(StationNode *node);
 int balance_factor(StationNode *node);
 
 /**
+ * @brief Get the count of the nodes in the tree.
+ * @param node The root.
+ * @retur The count of the nodes.
+ */
+int get_node_count(StationNode *node);
+
+/**
  * @brief Made a left rotation.
  * @param node The node
  * @return The new root of the tree.

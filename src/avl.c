@@ -103,6 +103,12 @@ int balance_factor(StationNode *node) {
     return get_height(node->left) - get_height(node->right);
 }
 
+int get_node_count(StationNode *node) {
+    if (node == NULL) return 0;
+
+    return 1 + get_node_count(node->left) + get_node_count(node->right);
+}
+
 StationNode *rotate_left(StationNode *node) {
     StationNode *new_root = node->right;
     StationNode *temp = new_root->left;
