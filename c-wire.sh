@@ -38,6 +38,12 @@ for arg in "$@"; do
             compile_exec
             exit 0
             ;;
+        -benchmark)
+            export RUNNING_BENCHMARK=1
+            ;;
+        -test)
+            export RUNNING_TESTS=1
+            ;;
     esac
 done
 
