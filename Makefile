@@ -1,9 +1,8 @@
 CC = gcc
 
-CFLAGS = -std=c11 -Ilibs/include -Iinclude
+CFLAGS = -std=c11 -Iinclude
 
-SRC = libs/src/list.c \
-	  src/main.c src/avl.c src/csv_parser.c src/csv_output.c \
+SRC = src/main.c src/avl.c src/csv_parser.c src/csv_output.c \
 	  src/application_settings.c src/result_generator.c src/maths.c \
 	  src/application_test.c src/qsort.c src/benchmark.c
 

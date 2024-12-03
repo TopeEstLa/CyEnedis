@@ -3,9 +3,9 @@
 #include <application_settings.h>
 #include <csv_parser.h>
 #include <result_generator.h>
-#include <time.h>
 #include <csv_output.h>
 #include <qsort.h>
+#include <stdlib.h>
 
 #include <application_test.h>
 #include <benchmark.h>
@@ -44,7 +44,6 @@ int main(int argc, char *argv[]) {
         return 3;
     }
 
-   // print_application_settings(settings);
     mark_setting_time();
 
     StationNode *node = process_csv_file(settings);
@@ -53,7 +52,6 @@ int main(int argc, char *argv[]) {
         free_application_settings(settings);
         return 4;
     }
-
     mark_build_time();
 
     int count = 0;
@@ -64,14 +62,11 @@ int main(int argc, char *argv[]) {
         free_station_node(node);
         return 5;
     }
-
-    //printf("Results:\n");
-    //print_station_result(results, count);
     mark_collect_time();
 
+    free_station_node(node);
+
     qsort_by_capacity(results, count);
-    //printf("Results sorted by capacity:\n");
-    //print_station_result(results, count);
     mark_sort_time();
 
     char *filename = generate_output_filename(settings);
@@ -82,7 +77,6 @@ int main(int argc, char *argv[]) {
             free_station_result(results[i]);
         }
         free(results);
-        free_station_node(node);
         return 6;
     }
 
@@ -96,31 +90,34 @@ int main(int argc, char *argv[]) {
         char *minmax_filename = generate_minmax_output_filename(settings);
         if (minmax_filename == NULL) {
             printf("Error generating minmax filename\n");
+
             free_application_settings(settings);
+
             for (int i = 0; i < count; i++) {
                 free_station_result(results[i]);
             }
+
             free(results);
-            free_station_node(node);
             free(filename);
             return 7;
         }
 
         write_min_max_csv(minmax_filename, results, count);
+
+        free(minmax_filename);
     }
 
     for (int i = 0; i < count; i++) {
         free_station_result(results[i]);
     }
+
     free(results);
     free(filename);
 
-    free_station_node(node);
     free_application_settings(settings);
 
     //clear terminal
     mark_benchmark_end();
     benchmark_result();
-
     return 0;
 }

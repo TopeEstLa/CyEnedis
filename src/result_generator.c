@@ -1,7 +1,6 @@
 #include <result_generator.h>
 
 #include <stdlib.h>
-#include <list.h>
 #include <stdio.h>
 
 StationResult *create_station_result(StationNode *node) {

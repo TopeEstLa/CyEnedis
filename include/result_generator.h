@@ -2,7 +2,6 @@
 #define RESULT_GENERATOR_H
 
 #include <avl.h>
-#include <list.h>
 
 /**
  * @brief Structure for the results of a station
