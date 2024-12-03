@@ -31,37 +31,32 @@ void free_station_result(StationResult* result) {
     free(result);
 }
 
-void collect_results_helper(StationNode *node, List *list) {
+void collect_results_helper(StationNode *node, StationResult **list, int *index) {
     if (node == NULL) return;
 
-    collect_results_helper(node->left, list);
+    collect_results_helper(node->left, list, index);
 
     StationResult *result = create_station_result(node);
     if (result == NULL) return;
-    append(list, result);
 
-    collect_results_helper(node->right, list);
+    list[*index] = result;
+    (*index)++;
+
+    collect_results_helper(node->right, list, index);
 }
 
 StationResult **collect_results(StationNode *root, int *count) {
     if (root == NULL) return NULL;
     *count = 0;
+    int node_count = get_node_count(root);
 
-    List *list = createList();
-    if (list == NULL) return NULL;
-    collect_results_helper(root, list);
-
-    StationResult **results = malloc(list->size * sizeof(StationResult *));
+    StationResult **results = malloc((node_count+1) * sizeof(StationResult *));
     if (results == NULL) return NULL;
 
-    ListNode *current = list->head;
-    for (int i = 0; i < list->size; i++) {
-        results[i] = current->data;
-        current = current->next;
-    }
+    int index = 0;
+    collect_results_helper(root, results, &index);
 
-    *count = list->size;
-    freeList(list);
+    *count = index;
 
     return results;
 }

@@ -50,9 +50,10 @@ StationResult** collect_results(StationNode* root, int* count);
 /**
  * @brief Using an List (from CDataType) to collect results from an AVL tree
  * @param node the node to add to the list
- * @param list the list to add to
+ * @param list the list to add the node to
+ * @param index the index of the list
  */
-void collect_results_helper(StationNode *node, List *list);
+void collect_results_helper(StationNode *node, StationResult **list, int *index);
 
 /**
  * @Deprecated
