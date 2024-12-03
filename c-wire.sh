@@ -12,6 +12,8 @@ function send_help() {
     echo "Options:"
     echo "  -h  Show this help"
     echo "  -c Force compilation"
+    echo "  -benchmark Set benchmark mode"
+    echo "  -test Set test mode"
     exit 0
 }
 
@@ -40,9 +42,11 @@ for arg in "$@"; do
             ;;
         -benchmark)
             export RUNNING_BENCHMARK=1
+            exit 0
             ;;
         -test)
             export RUNNING_TESTS=1
+            exit 0
             ;;
     esac
 done
