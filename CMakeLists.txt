@@ -28,4 +28,6 @@ add_executable(CyEnedis
         src/application_test.c
         include/benchmark.h
         src/benchmark.c
+        include/waiting_scene.h
+        src/waiting_scene.c
 )
