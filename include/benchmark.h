@@ -5,6 +5,13 @@
 #include <time.h>
 #include <stdbool.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#include <psapi.h>
+#elif __linux__
+#include <sys/resource.h>
+#endif
+
 void set_benchmark_enabled(bool enabled);
 
 long long current_time_in_ms();
@@ -20,5 +27,7 @@ void mark_sort_time();
 void mark_write_time();
 
 void benchmark_result();
+
+void print_memory_usage();
 
 #endif //BENCHMARK_H

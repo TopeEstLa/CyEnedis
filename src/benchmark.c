@@ -2,8 +2,6 @@
 #include <stdbool.h>
 
 #ifdef _WIN32
-#include <windows.h>
-#include <psapi.h>
 
 void print_memory_usage() {
     PROCESS_MEMORY_COUNTERS pmc;
@@ -15,7 +13,6 @@ void print_memory_usage() {
 }
 
 #elif __linux__
-#include <sys/resource.h>
 
 void print_memory_usage() {
     struct rusage usage;
