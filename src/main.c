@@ -12,7 +12,6 @@
 #include <benchmark.h>
 #include <waiting_scene.h>
 
-
 bool isTest = false;
 
 int main(int argc, char *argv[]) {

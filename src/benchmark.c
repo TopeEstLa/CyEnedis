@@ -1,6 +1,37 @@
 #include <benchmark.h>
 #include <stdbool.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#include <psapi.h>
+
+void print_memory_usage() {
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+        printf("Max ram used: %lu KB\n", pmc.PeakWorkingSetSize / 1024);
+    } else {
+        printf("Error while trying to get ram usage (Windows)\n");
+    }
+}
+
+#elif __linux__
+#include <sys/resource.h>
+
+void print_memory_usage() {
+    struct rusage usage;
+    if (getrusage(RUSAGE_SELF, &usage) == 0) {
+        printf("Max ram used: %ld KB\n", usage.ru_maxrss);
+    } else {
+        printf("Error while trying to get ram usage (Linux)\n");
+    }
+}
+
+#else
+void print_memory_usage() {
+    printf("Can't benchmark ram usage\n");
+}
+#endif
+
 bool enable_benchmark = false;
 
 long long start_time = 0;
@@ -66,4 +97,5 @@ void benchmark_result() {
     printf("Sort elapsed time: %lld ms\n", sort_time - collect_time);
     printf("Write elapsed time: %lld ms\n", write_time - sort_time);
     printf("Total elapsed time: %lld ms\n", end_time - start_time);
+    print_memory_usage();
 }
