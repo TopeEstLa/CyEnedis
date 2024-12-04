@@ -131,6 +131,9 @@ StationNode* test_avl_build(ApplicationSettings* settings) {
     assert(node_to_find->capacity == 241999040);
     assert(is_avl(root));
 
+    root = equalize_avl(root);
+    assert(is_avl(root));
+
     return root;
 }
 

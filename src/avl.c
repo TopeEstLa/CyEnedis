@@ -145,3 +145,32 @@ bool is_avl(StationNode *root) {
 
     return is_avl(root->left) && is_avl(root->right);
 }
+
+StationNode* equalize_avl(StationNode* root) {
+    if (root == NULL) return NULL;
+
+    root->left = equalize_avl(root->left);
+    root->right = equalize_avl(root->right);
+
+    int balance = balance_factor(root);
+
+    if (balance > MAX_TOLERANCE && balance_factor(root->left) >= 0) {
+        return rotate_right(root);
+    }
+
+    if (balance < MIN_TOLERANCE && balance_factor(root->right) <= 0) {
+        return rotate_left(root);
+    }
+
+    if (balance > MAX_TOLERANCE && balance_factor(root->left) < 0) {
+        root->left = rotate_left(root->left);
+        return rotate_right(root);
+    }
+
+    if (balance < MIN_TOLERANCE && balance_factor(root->right) > 0) {
+        root->right = rotate_right(root->right);
+        return rotate_left(root);
+    }
+
+    return root;
+}

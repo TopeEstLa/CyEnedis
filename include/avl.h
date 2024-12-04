@@ -107,5 +107,11 @@ StationNode *rotate_right(StationNode *node);
  */
 bool is_avl(StationNode *root);
 
+/**
+ * @brief Equalize the AVL tree.
+ * @param root The root of the tree.
+ * @return The new root of the tree.
+ */
+StationNode* equalize_avl(StationNode* root);
 
 #endif //AVL_H
