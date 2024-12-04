@@ -1,6 +1,7 @@
 #include <application_test.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int test_global() {
     printf("Starting tests\n");
@@ -128,7 +129,7 @@ StationNode* test_avl_build(ApplicationSettings* settings) {
     assert(node_to_find != NULL);
     assert(node_to_find->load == 171359043);
     assert(node_to_find->capacity == 241999040);
-
+    assert(is_avl(root));
 
     return root;
 }

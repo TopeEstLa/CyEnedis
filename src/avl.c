@@ -135,3 +135,13 @@ StationNode *rotate_right(StationNode *node) {
     return new_root;
 }
 
+
+bool is_avl(StationNode *root) {
+    if (root == NULL) return true;
+
+    int balance = balance_factor(root);
+
+    if (balance > MAX_TOLERANCE || balance < MIN_TOLERANCE) return false;
+
+    return is_avl(root->left) && is_avl(root->right);
+}

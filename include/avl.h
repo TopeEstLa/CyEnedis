@@ -1,6 +1,8 @@
 #ifndef AVL_H
 #define AVL_H
 
+#include <stdbool.h>
+
 #define MIN_TOLERANCE (-1)
 #define MAX_TOLERANCE 1
 
@@ -97,6 +99,13 @@ StationNode *rotate_left(StationNode *node);
  * @return The new root of the tree.
  */
 StationNode *rotate_right(StationNode *node);
+
+/**
+ * @brief Check if the tree is AVL.
+ * @param root The root of the tree.
+ * @return True if the tree is AVL.
+ */
+bool is_avl(StationNode *root);
 
 
 #endif //AVL_H
