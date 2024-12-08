@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <maths.h>
 
 StationResult *create_station_result(StationNode *node) {
     if (node == NULL) return NULL;
@@ -12,7 +13,8 @@ StationResult *create_station_result(StationNode *node) {
     result->station_id = node->id;
     result->capacity = node->capacity;
     result->load = node->load;
-    result->ratio = (double) ((double) node->load / (double) node->capacity);
+    long long rate = node->capacity - node->load;
+    result->ratio = llabs(rate);
 
     return result;
 }
@@ -21,7 +23,7 @@ void print_station_result(StationResult** result, int count) {
     if (result == NULL) return;
 
     for (int i = 0; i < count; i++) {
-        printf("%d: %lld %lld %.2f\n", result[i]->station_id, result[i]->capacity, result[i]->load, result[i]->ratio);
+        printf("%d: %lld %lld %lld\n", result[i]->station_id, result[i]->capacity, result[i]->load, result[i]->ratio);
     }
 }
 

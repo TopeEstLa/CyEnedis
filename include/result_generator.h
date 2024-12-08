@@ -14,7 +14,7 @@ typedef struct station_result {
     int station_id;
     long long capacity;
     long long load;
-    double ratio;
+    long long ratio;
 } StationResult;
 
 
