@@ -72,14 +72,18 @@ if [ $CONSUMER_TYPE != "comp" ] && [ $CONSUMER_TYPE != "indiv" ] && [ $CONSUMER_
     exit 1
 fi
 
-if [ ${STATION_TYPE,,} == "hvb" ] && { [[ ${CONSUMER_TYPE,,} == "indiv" ]] || [[ ${CONSUMER_TYPE,,} == "all" ]] }; then
+if [ ${STATION_TYPE,,} == "hvb" ]; then
+  if  [ ${CONSUMER_TYPE,,} == "indiv" ] || [ ${CONSUMER_TYPE,,} == "all" ]; then
     echo "You can't have HVB and INDIV or ALL"
     exit 1
+  fi
 fi
 
-if [ ${STATION_TYPE,,} == "hva" ] && { [[ ${CONSUMER_TYPE,,} == "indiv" ]] || [[ ${CONSUMER_TYPE,,} == "all" ]] }; then
-    echo "You can't have HVB and INDIV or ALL"
+if [ ${STATION_TYPE,,} == "hva" ]; then
+  if [ ${CONSUMER_TYPE,,} == "indiv" ] || [ ${CONSUMER_TYPE,,} == "all" ]; then
+    echo "You can't have HVA and INDIV or ALL"
     exit 1
+  fi
 fi
 
 if [ ! -f $CSV_FILE ]; then
