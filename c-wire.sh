@@ -110,8 +110,8 @@ START_TIME=$(date +%s)
 echo "  _____         ______                   _  _"
 echo " / ____|       |  ____|                 | |(_)"
 echo "| |      _   _ | |__    _ __    ___   __| | _  ___"
-echo "| |     | | | ||  __|  | '_ \  / _ \ / _` || |/ __|"
-echo "| |____ | |_| || |____ | | | ||  __/| (_| || |\__ \"
+echo "| |     | | | ||  __|  | '_ \  / _ \ / _  || |/ __|"
+echo "| |____ | |_| || |____ | | | ||  __/| (_| || |\__  "
 echo " \_____| \__, ||______||_| |_| \___| \__,_||_||___/"
 echo "          __/ |"
 echo "         |___/"
@@ -186,7 +186,7 @@ gnuplot -persist << EOF
   set xtics rotate by -45
   set ylabel 'Load (kWh)'
   set xlabel 'Station ID'
-  set datafile separator ","
+  set datafile separator ":"
   plot '${OUTPUT_FILE_NAME}_minmax.csv' using 3:xtic(1) with boxes title 'Load'
 EOF
 
