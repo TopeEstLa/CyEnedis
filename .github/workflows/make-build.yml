@@ -14,7 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: make
-      run: make -f codeC/Makefile
+      run: |
+        cd codeC
+        make
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
