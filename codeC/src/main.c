@@ -101,6 +101,7 @@ int main(int argc, char *argv[]) {
     free_application_settings(settings);
     pthread_cancel(tid);
 
+    printf("\n");
     mark_benchmark_end();
     benchmark_result();
     return 0;
