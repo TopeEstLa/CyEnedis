@@ -4,26 +4,34 @@ Pre-Ing-2 S1 IT project <br>
 Subject CyWire [subject.pdf](subject.pdf) <br>
 Project report [report.pdf](RapportProjetInformatique.pdf) <br>
 
-## Build
+## Compilation
 
 ```bash
 chmod +x c-wire.sh
 ./c-wire.sh -c
 ```
 
-## Run
+## Execution
+
+### Arguments
+- input_file: path to the input file
+- station_type: type of station (hvb, hva, lv)
+- consumer_type: type of consumer (indiv, comp, all)
+- power_plant_id: id of the power plant (optional)
+
+⚠️ some case are not allowed (hvb all/indiv) & (hva all/indiv)
 
 ```bash
 chmod +x c-wire.sh
 ./c-wire.sh input/[input_file] [station_type(hvb, hva, lv)] [consumer_type(indiv, comp, all)] (power_plant_id)
 ```
-## Example
+### Example
 
 ```bash
 ./c-wire.sh input/test-data.csv lv all
 ```
-
-⚠️ power_plant_id is optional and some case are not allowed (hvb all/indiv) & (hva all/indiv)
+## Dependencies
+- pthread
 
 ## Env variables
 - RUNNING_TESTS: Set to 1 to run tests
