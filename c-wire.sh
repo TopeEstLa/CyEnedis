@@ -107,6 +107,15 @@ prepare_and_clean_folder
 
 START_TIME=$(date +%s)
 
+echo "  _____         ______                   _  _"
+echo " / ____|       |  ____|                 | |(_)"
+echo "| |      _   _ | |__    _ __    ___   __| | _  ___"
+echo "| |     | | | ||  __|  | '_ \  / _ \ / _` || |/ __|"
+echo "| |____ | |_| || |____ | | | ||  __/| (_| || |\__ \"
+echo " \_____| \__, ||______||_| |_| \___| \__,_||_||___/"
+echo "          __/ |"
+echo "         |___/"
+
 if [ $POWER_PLANT_ID == -1 ]; then
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE
     STATUS_CODE=$?
