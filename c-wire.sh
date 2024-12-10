@@ -23,7 +23,7 @@ function prepare_and_clean_folder() {
   mkdir -p input output tmp graphs
   if [ $? -ne 0 ]; then
     echo "Error while creating the folders"
-    exit 1
+    exit 20
   fi
 }
 
@@ -33,7 +33,7 @@ function compile_exec() {
   make
   if [ $? -ne 0 ]; then
     echo "Error while compiling the project"
-    exit 1
+    exit 21
   fi
   cd ..
 }
@@ -71,31 +71,31 @@ OUTPUT_FILE_NAME=""
 
 if [ $STATION_TYPE != "hvb" ] && [ $STATION_TYPE != "hva" ] && [ $STATION_TYPE != "lv" ]; then
     echo "Station type must be (hvb, hva, lv)"
-    exit 1
+    exit 22
 fi
 
 if [ $CONSUMER_TYPE != "comp" ] && [ $CONSUMER_TYPE != "indiv" ] && [ $CONSUMER_TYPE != "all" ]; then
     echo "Consumer type must be (comp, indiv, all)"
-    exit 1
+    exit 22
 fi
 
 if [ ${STATION_TYPE,,} == "hvb" ]; then
   if  [ ${CONSUMER_TYPE,,} == "indiv" ] || [ ${CONSUMER_TYPE,,} == "all" ]; then
     echo "You can't have HVB and INDIV or ALL"
-    exit 1
+    exit 22
   fi
 fi
 
 if [ ${STATION_TYPE,,} == "hva" ]; then
   if [ ${CONSUMER_TYPE,,} == "indiv" ] || [ ${CONSUMER_TYPE,,} == "all" ]; then
     echo "You can't have HVA and INDIV or ALL"
-    exit 1
+    exit 22
   fi
 fi
 
 if [ ! -f $CSV_FILE ]; then
     echo "File not found"
-    exit 1
+    exit 22
 fi
 
 if [ -z $POWER_PLANT_ID ]; then
