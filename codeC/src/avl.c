@@ -11,44 +11,34 @@ StationNode *create_station_node(int id, long long capacity, long long load) {
     node->id = id;
     node->capacity = capacity;
     node->load = load;
-    node->height = 1;
+    node->eq = 0;
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
-StationNode *insert_station_node(StationNode *root, int id, long long capacity, long long load) {
-    if (root == NULL) return create_station_node(id, capacity, load);
+StationNode *insert_station_node(StationNode *root, int *h, int id, long long capacity, long long load) {
+    if (root == NULL) {
+        *h = 1;
+        return create_station_node(id, capacity, load);
+    }
 
     if (id < root->id) {
-        root->left = insert_station_node(root->left, id, capacity, load);
+        root->left = insert_station_node(root->left, h, id, capacity, load);
+        *h = -*h;
     } else if (id > root->id) {
-        root->right = insert_station_node(root->right, id, capacity, load);
+        root->right = insert_station_node(root->right, h, id, capacity, load);
     } else {
-        //No duplicates allowed
+        *h = 0;
+        //root->capacity = capacity;
+        //root->load = load;
         return root;
     }
 
-    update_height(root);
-
-    int balance = balance_factor(root);
-
-    if (balance > MAX_TOLERANCE && id < root->left->id) {
-        return rotate_right(root);
-    }
-
-    if (balance < MIN_TOLERANCE && id > root->right->id) {
-        return rotate_left(root);
-    }
-
-    if (balance > MAX_TOLERANCE && id > root->left->id) {
-        root->left = rotate_left(root->left);
-        return rotate_right(root);
-    }
-
-    if (balance < MIN_TOLERANCE && id < root->right->id) {
-        root->right = rotate_right(root->right);
-        return rotate_left(root);
+    if (*h != 0) {
+        root->eq += *h;
+        root = equalize_avl(root);
+        *h = (root->eq == 0) ? 0 : 1;
     }
 
     return root;
@@ -85,24 +75,6 @@ void pretty_print_avl(StationNode *node, int depth) {
     pretty_print_avl(node->left, depth + 1);
 }
 
-int get_height(StationNode *node) {
-    if (node == NULL) return 0;
-
-    return node->height;
-}
-
-void update_height(StationNode *node) {
-    if (node == NULL) return;
-
-    node->height = 1 + max(get_height(node->left), get_height(node->right));
-}
-
-int balance_factor(StationNode *node) {
-    if (node == NULL) return 0;
-
-    return get_height(node->left) - get_height(node->right);
-}
-
 int get_node_count(StationNode *node) {
     if (node == NULL) return 0;
 
@@ -113,11 +85,14 @@ StationNode *rotate_left(StationNode *node) {
     StationNode *new_root = node->right;
     StationNode *temp = new_root->left;
 
+    int eq_root = node->eq;
+    int eq_new_root = new_root->eq;
+
     new_root->left = node;
     node->right = temp;
 
-    update_height(node);
-    update_height(new_root);
+    node->eq = eq_root - max(eq_new_root, 0) - 1;
+    new_root->eq = min3(eq_root - 2, eq_root + eq_new_root - 2, eq_new_root - 1);
 
     return new_root;
 }
@@ -126,50 +101,63 @@ StationNode *rotate_right(StationNode *node) {
     StationNode *new_root = node->left;
     StationNode *temp = new_root->right;
 
+    int eq_root = node->eq;
+    int eq_new_root = new_root->eq;
+
     new_root->right = node;
     node->left = temp;
 
-    update_height(node);
-    update_height(new_root);
+    node->eq = eq_root - min(eq_new_root, 0) + 1;
+    new_root->eq = max3(eq_root + 2, eq_root + eq_new_root + 2, eq_new_root + 1);
 
     return new_root;
+}
+
+StationNode *double_rotate_left(StationNode *node) {
+    node->right = rotate_right(node->right);
+    return rotate_left(node);
+}
+
+StationNode *double_rotate_right(StationNode *node) {
+    node->left = rotate_left(node->left);
+    return rotate_right(node);
 }
 
 
 bool is_avl(StationNode *root) {
     if (root == NULL) return true;
 
-    int balance = balance_factor(root);
-
+//    int balance = balance_factor(root);
+    int balance = root->eq;
     if (balance > MAX_TOLERANCE || balance < MIN_TOLERANCE) return false;
 
     return is_avl(root->left) && is_avl(root->right);
 }
 
-StationNode* equalize_avl(StationNode* root) {
+StationNode *equalize_avl(StationNode *root) {
     if (root == NULL) return NULL;
 
-    root->left = equalize_avl(root->left);
-    root->right = equalize_avl(root->right);
+    if (root->eq >= 2) {
+        //check is left is null
+        if (root->right == NULL) {
+            return root;
+        }
 
-    int balance = balance_factor(root);
+        if (root->right->eq >= 0) {
+            return rotate_left(root);
+        } else {
+            return double_rotate_left(root);
+        }
+    } else if (root->eq <= -2) {
+        if (root->left == NULL) {
+            return root;
+        }
 
-    if (balance > MAX_TOLERANCE && balance_factor(root->left) >= 0) {
-        return rotate_right(root);
-    }
-
-    if (balance < MIN_TOLERANCE && balance_factor(root->right) <= 0) {
-        return rotate_left(root);
-    }
-
-    if (balance > MAX_TOLERANCE && balance_factor(root->left) < 0) {
-        root->left = rotate_left(root->left);
-        return rotate_right(root);
-    }
-
-    if (balance < MIN_TOLERANCE && balance_factor(root->right) > 0) {
-        root->right = rotate_right(root->right);
-        return rotate_left(root);
+        if (root->left->eq <= 0) {
+            return rotate_right(root);
+        } else {
+            return double_rotate_right(root);
+        }
     }
 
     return root;

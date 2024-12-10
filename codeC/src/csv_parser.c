@@ -28,6 +28,8 @@ StationNode *process_csv_file(ApplicationSettings *settings) {
 
     fgets(line, max_line_length, file);
 
+    int h = 0;
+
     while (fgets(line, max_line_length, file)) {
         strip_newline(line);
         ParsedData *data = parse_csv_line(settings, line);
@@ -38,7 +40,7 @@ StationNode *process_csv_file(ApplicationSettings *settings) {
 
         if (should_process_station(data, settings)) {
             int station = get_parent_station(data, settings);
-            root = insert_station_node(root, station, data->capacity, data->load);
+            root = insert_station_node(root, &h, station, data->capacity, data->load);
             if (root == NULL) {
                 fclose(file);
                 free(data);
