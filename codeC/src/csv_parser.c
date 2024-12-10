@@ -23,10 +23,10 @@ StationNode *process_csv_file(ApplicationSettings *settings) {
     if (file == NULL) return NULL;
 
     int max_line_length = 3024;
-    char line[3024];
+    char line[max_line_length];
     StationNode *root = NULL;
 
-    fgets(line, sizeof(line), file);
+    fgets(line, max_line_length, file);
 
     while (fgets(line, max_line_length, file)) {
         strip_newline(line);
@@ -62,12 +62,15 @@ StationNode *process_csv_file(ApplicationSettings *settings) {
 
         if (should_process_consumer(data, settings)) {
             int parent_station = get_parent_station(data, settings);
-            if (parent_station == -1)
+            if (parent_station == -1) {
+                free(data);
                 continue; //Normal if we need to check hvb station and we have a consumer hooked in a lv station we need to skip it
+            }
 
             StationNode *node = get_station_node(root, parent_station);
             if (node == NULL) {
                 printf("Failed to find station %d error during parsing ? or csv file mis created ?\n", parent_station);
+                free(data);
                 continue;
             }
             node->load += data->load;

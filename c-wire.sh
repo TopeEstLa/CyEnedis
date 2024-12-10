@@ -9,7 +9,7 @@ function send_help() {
     echo "  ARG[0] input csv file"
     echo "  ARG[1] Station type (HVB, HVA, LV)"
     echo "  ARG[2] Consumer type (COMP, INDIV, ALL)"
-    echo "  ARG[3] Number of stations *optional*"
+    echo "  ARG[3] Number of power plant *optional*"
     echo "Options:"
     echo "  -h  Show this help"
     echo "  -c Force compilation"

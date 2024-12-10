@@ -30,4 +30,6 @@ add_executable(CyEnedis
         src/benchmark.c
         include/waiting_scene.h
         src/waiting_scene.c
+        include/memleak_check.h
+        src/memleak_check.c
 )

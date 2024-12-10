@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include <application_settings.h>
 #include <csv_parser.h>
 #include <result_generator.h>
@@ -15,12 +13,12 @@
 bool isTest = false;
 
 int main(int argc, char *argv[]) {
-    char* testenv = getenv("RUNNING_TEST");
+    char *testenv = getenv("RUNNING_TEST");
     if (testenv != NULL && strcmp(testenv, "1") == 0) {
         isTest = true;
     }
 
-    char* benchmarkenv = getenv("RUNNING_BENCHMARK");
+    char *benchmarkenv = getenv("RUNNING_BENCHMARK");
     if (benchmarkenv != NULL && strcmp(benchmarkenv, "1") == 0) {
         set_benchmark_enabled(true);
     }
