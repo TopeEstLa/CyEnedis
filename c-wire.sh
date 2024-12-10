@@ -1,6 +1,7 @@
 #!/bin/bash
 
-EXEC_NAME="CyEnedis"
+PROG_FOLDER="codeC"
+EXEC_NAME="${PROG_FOLDER}/CyEnedis"
 
 function send_help() {
     echo "Usage: ./c-wire.sh [ARG] [OPTION]"
@@ -19,16 +20,22 @@ function send_help() {
 
 function prepare_and_clean_folder() {
   rm -rf tmp/
-  mkdir -p input tmp graphs
+  mkdir -p input output tmp graphs
+  if [ $? -ne 0 ]; then
+    echo "Error while creating the folders"
+    exit 1
+  fi
 }
 
 function compile_exec() {
-    make clean
-    make
-    if [ $? -ne 0 ]; then
-        echo "Error while compiling the project"
-        exit 1
-    fi
+  cd ${PROG_FOLDER}
+  make clean
+  make
+  if [ $? -ne 0 ]; then
+    echo "Error while compiling the project"
+    exit 1
+  fi
+  cd ..
 }
 
 for arg in "$@"; do
@@ -96,6 +103,15 @@ if [ -z $POWER_PLANT_ID ]; then
 fi
 
 
+echo "  _____         ______                   _  _"
+echo " / ____|       |  ____|                 | |(_)"
+echo "| |      _   _ | |__    _ __    ___   __| | _  ___"
+echo "| |     | | | ||  __|  | '_ \  / _ \ / _  || |/ __|"
+echo "| |____ | |_| || |____ | | | ||  __/| (_| || |\__  "
+echo " \_____| \__, ||______||_| |_| \___| \__,_||_||___/"
+echo "          __/ |"
+echo "         |___/"
+
 if [ ! -f $EXEC_NAME ]; then
     echo "Executable not found, compiling..."
     compile_exec
@@ -107,14 +123,6 @@ prepare_and_clean_folder
 
 START_TIME=$(date +%s)
 
-echo "  _____         ______                   _  _"
-echo " / ____|       |  ____|                 | |(_)"
-echo "| |      _   _ | |__    _ __    ___   __| | _  ___"
-echo "| |     | | | ||  __|  | '_ \  / _ \ / _  || |/ __|"
-echo "| |____ | |_| || |____ | | | ||  __/| (_| || |\__  "
-echo " \_____| \__, ||______||_| |_| \___| \__,_||_||___/"
-echo "          __/ |"
-echo "         |___/"
 
 if [ $POWER_PLANT_ID == -1 ]; then
     ./$EXEC_NAME $CSV_FILE $STATION_TYPE $CONSUMER_TYPE
@@ -157,6 +165,9 @@ case "$STATUS_CODE" in
   7)
     echo "Error while writing output 'minmax' csv file"
     ;;
+  127)
+    echo "Program was compiled successfully but i could not find it ???"
+    ;;
   *)
     echo "Unknown error"
     ;;
@@ -187,7 +198,7 @@ gnuplot -persist << EOF
   set ylabel 'Load (kWh)'
   set xlabel 'Station ID'
   set datafile separator ":"
-  plot '${OUTPUT_FILE_NAME}_minmax.csv' using 3:xtic(1) with boxes title 'Load'
+  plot 'output/${OUTPUT_FILE_NAME}_minmax.csv' using 3:xtic(1) with boxes title 'Load'
 EOF
 
 echo "Graphs generated in graphs/${OUTPUT_FILE_NAME}_load_graph.png"

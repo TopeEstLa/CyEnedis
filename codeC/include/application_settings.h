@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #define DEFAULT_DELIMITER ";"
+#define OUTPUT_FOLDER "output/"
 
 /**
  * Enum for the type of station used for filtering

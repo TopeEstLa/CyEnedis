@@ -149,9 +149,9 @@ char *generate_output_filename(ApplicationSettings *settings) {
     }
 
     if (settings->power_plant == -1) {
-        sprintf(filename, "%s_%s.csv", station_type, consumer_type);
+        sprintf(filename, "%s%s_%s.csv", OUTPUT_FOLDER, station_type, consumer_type);
     } else {
-        sprintf(filename, "%s_%s_%d.csv", station_type, consumer_type, settings->power_plant);
+        sprintf(filename, "%s%s_%s_%d.csv", OUTPUT_FOLDER, station_type, consumer_type, settings->power_plant);
     }
 
     return filename;
@@ -194,9 +194,9 @@ char* generate_minmax_output_filename(ApplicationSettings* settings) {
     }
 
     if (settings->power_plant == -1) {
-        sprintf(filename, "%s_%s_minmax.csv", station_type, consumer_type);
+        sprintf(filename, "%s%s_%s_minmax.csv", OUTPUT_FOLDER, station_type, consumer_type);
     } else {
-        sprintf(filename, "%s_%s_%d_minmax.csv", station_type, consumer_type, settings->power_plant);
+        sprintf(filename, "%s%s_%s_%d_minmax.csv", OUTPUT_FOLDER, station_type, consumer_type, settings->power_plant);
     }
 
     return filename;
