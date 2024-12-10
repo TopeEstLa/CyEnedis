@@ -18,7 +18,32 @@ void init_waiting_scene(){
 }
 
 void* draw_waiting_scene(void* varg) {
+    int value = 1;
     while (1) {
+        printf("  _____                                _  _\n"
+               " / ____|                              | |(_)\n"
+               "| |      _   _   ___  _ __    ___   __| | _  ___\n"
+               "| |     | | | | / _ \\| '_ \\  / _ \\ / _` || |/ __|\n"
+               "| |____ | |_| ||  __/| | | ||  __/| (_| || |\\__ \\\n"
+               " \\_____| \\__, | \\___||_| |_| \\___| \\__,_||_||___/\n"
+               "          __/ |\n"
+               "         |___/\n");
+
+
+        if (value) {
+            printf("     O     \n"
+                   "    /|\\    \n"
+                   "    / \\    \n"
+                   "  _/   \\_                                ");
+            value = 0;
+        } else {
+            printf("   \\ O /   \n"
+                   "    /|\\    \n"
+                   "    / \\    \n"
+                   "  _/   \\_                                 ");
+            value = 1;
+        }
+
         int random = rand() % 4;
         switch (random) {
             case 0:
