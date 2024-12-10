@@ -50,11 +50,11 @@ int test_global() {
 
 ApplicationSettings* test_settings_parser() {
     //Testing normal case
-    char *argv[] = {"test", "test-data.csv", "lv", "all"};
+    char *argv[] = {"test", "input/test-data.csv", "lv", "all"};
     ApplicationSettings *settings = parse_application_settings(4, argv);
     assert(settings != NULL);
 
-    assert(strcmp(settings->filename, "test-data.csv") == 0);
+    assert(strcmp(settings->filename, "input/test-data.csv") == 0);
     assert(strcmp(settings->delimiter, DEFAULT_DELIMITER) == 0);
     assert(settings->power_plant == -1);
     assert(settings->station_type == STATION_LV);

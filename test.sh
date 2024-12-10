@@ -1,7 +1,7 @@
 #!/bin/bash
 
-EXEC_NAME="CyEnedis"
-TEST_FILE="test-data.csv"
+EXEC_NAME="codeC/CyEnedis"
+TEST_FILE="input/test-data.csv"
 
 ./$EXEC_NAME $TEST_FILE hvb comp
 STATUS_CODE=$?
