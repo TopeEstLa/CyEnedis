@@ -32,7 +32,7 @@ void* draw_waiting_scene(void* varg) {
 
         if (value) {
             printf("     O     \n"
-                   "    /|\\    \n"
+                   "     |    \n"
                    "    / \\    \n"
                    "  _/   \\_                                ");
             value = 0;
