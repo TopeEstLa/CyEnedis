@@ -52,7 +52,7 @@ for arg in "$@"; do
             exit 0
             ;;
         -test)
-            export RUNNING_TESTS=1
+            ./$EXEC_NAME -test
             exit 0
             ;;
     esac
