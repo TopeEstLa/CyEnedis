@@ -32,13 +32,13 @@ void* draw_waiting_scene(void* varg) {
 
         if (value) {
             printf("     O     \n"
-                   "     |    \n"
+                   "    /|\\    \n"
                    "    / \\    \n"
                    "  _/   \\_                                ");
             value = 0;
         } else {
             printf("   \\ O /   \n"
-                   "    /|\\    \n"
+                   "     |    \n"
                    "    / \\    \n"
                    "  _/   \\_                                 ");
             value = 1;
@@ -48,19 +48,19 @@ void* draw_waiting_scene(void* varg) {
         switch (random) {
             case 0:
                 printf("Loading");
-                slowPrint(" ....", 300000);
+                slowPrint(" ...", 300000);
                 break;
             case 1:
                 printf("Data processing in progress");
-                slowPrint(" ....", 300000);
+                slowPrint(" ...", 300000);
                 break;
             case 2:
                 printf("Please wait");
-                slowPrint(" ....", 300000);
+                slowPrint(" ...", 300000);
                 break;
             case 3:
                 printf("It's almost over (or not :=))");
-                slowPrint(" ....", 300000);
+                slowPrint(" ...", 300000);
                 break;
         }
 
