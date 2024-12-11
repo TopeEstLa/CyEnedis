@@ -170,3 +170,12 @@ StationResult** test_qsort(StationResult** result, int count) {
 
     return result;
 }
+
+bool as_test_argument(int argc, char *argv[]) {
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "-test") == 0) {
+            return true;
+        }
+    }
+    return false;
+}

@@ -44,4 +44,12 @@ StationResult** test_output(StationNode* node, int* count);
  */
 StationResult** test_qsort(StationResult** result, int count);
 
+/**
+ * @brief Check if we have -t argument.
+ * @param argc size of argv.
+ * @param argv arguments.
+ * @return true if we have -t argument, false otherwise.
+ */
+bool as_test_argument(int argc, char *argv[]);
+
 #endif //APPLICATION_TEST_H

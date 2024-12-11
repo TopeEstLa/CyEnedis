@@ -7,7 +7,6 @@ Project report [report.pdf](RapportProjetInformatique.pdf) <br>
 ## Compilation
 
 ```bash
-chmod +x c-wire.sh
 ./c-wire.sh -c
 ```
 
@@ -22,7 +21,6 @@ chmod +x c-wire.sh
 ⚠️ some case are not allowed (hvb all/indiv) & (hva all/indiv)
 
 ```bash
-chmod +x c-wire.sh
 ./c-wire.sh input/[input_file] [station_type(hvb, hva, lv)] [consumer_type(indiv, comp, all)] (power_plant_id)
 ```
 ### Example
@@ -34,7 +32,6 @@ chmod +x c-wire.sh
 - pthread
 
 ## Env variables
-- RUNNING_TESTS: Set to 1 to run tests
 - RUNNING_BENCHMARK: Set to 1 to run benchmarks
 
 ## Shell script exit code

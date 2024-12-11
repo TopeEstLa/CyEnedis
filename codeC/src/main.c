@@ -13,10 +13,7 @@
 bool isTest = false;
 
 int main(int argc, char *argv[]) {
-    char *testenv = getenv("RUNNING_TEST");
-    if (testenv != NULL && strcmp(testenv, "1") == 0) {
-        isTest = true;
-    }
+    isTest = as_test_argument(argc, argv);
 
     char *benchmarkenv = getenv("RUNNING_BENCHMARK");
     if (benchmarkenv != NULL && strcmp(benchmarkenv, "1") == 0) {
