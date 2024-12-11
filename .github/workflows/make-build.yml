@@ -17,7 +17,12 @@ jobs:
       run: |
         cd codeC
         make
-    - name: Running test
+    - name: unit tests
+      run: |
+        export RUNNING_TEST=1
+        ./codeC/CyEnedis
+        export RUNNING_TEST=0
+    - name: global tests
       run: |
         chmod +x ./test.sh
         ./test.sh

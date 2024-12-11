@@ -4,6 +4,8 @@ PROG_FOLDER="codeC"
 EXEC_NAME="${PROG_FOLDER}/CyEnedis"
 TEST_FILE="input/test-data.csv"
 
+mkdir -p output
+
 ./$EXEC_NAME $TEST_FILE hvb comp
 STATUS_CODE=$?
 if [ $STATUS_CODE != 0 ]; then
