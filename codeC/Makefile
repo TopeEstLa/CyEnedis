@@ -25,6 +25,7 @@ clean:
 	rm -f $(OBJ) $(TARGET)
 
 test:
+	cd codeC
 	EXPORT RUNNING_TEST=1
 	./$(TARGET)
 	EXPORT RUNNING_TEST=0
