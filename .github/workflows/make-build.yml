@@ -30,3 +30,7 @@ jobs:
       with:
         name: CyEnedis
         path: codeC/CyEnedis
+    - name: make clean
+      run: |
+        cd codeC
+        make clean
