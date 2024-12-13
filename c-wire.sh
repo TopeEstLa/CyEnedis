@@ -93,11 +93,6 @@ if [ ${STATION_TYPE,,} == "hva" ]; then
   fi
 fi
 
-if [ "$value" =~ ^[0-9]*\.?[0-9]+$ ]; then
-  echo "Power plant ID must be a number"
-  exit 22
-fi
-
 if [ ! -f $CSV_FILE ]; then
     echo "File not found"
     exit 22
@@ -107,6 +102,10 @@ if [ -z $POWER_PLANT_ID ]; then
     POWER_PLANT_ID=-1
 fi
 
+if ! [[ $POWER_PLANT_ID =~ ^[0-9]+$  ]] && [[ $POWER_PLANT_ID != -1 ]]; then
+  echo "Power plant id must be a positive number"
+  exit 22
+fi
 
 echo "  _____         ______                   _  _"
 echo " / ____|       |  ____|                 | |(_)"
