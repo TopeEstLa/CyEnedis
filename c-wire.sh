@@ -93,6 +93,11 @@ if [ ${STATION_TYPE,,} == "hva" ]; then
   fi
 fi
 
+if [ "$value" =~ ^[0-9]*\.?[0-9]+$ ]; then
+  echo "Power plant ID must be a number"
+  exit 22
+fi
+
 if [ ! -f $CSV_FILE ]; then
     echo "File not found"
     exit 22
