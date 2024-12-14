@@ -53,6 +53,8 @@ for arg in "$@"; do
             ;;
         -test)
             ./$EXEC_NAME -test
+            chmod +x test.sh
+            ./test.sh
             exit 0
             ;;
     esac
