@@ -208,3 +208,4 @@ gnuplot -persist << EOF
 EOF
 
 echo "Graphs generated in graphs/${OUTPUT_FILE_NAME}_load_graph.png"
+echo "Done"
