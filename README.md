@@ -2,7 +2,7 @@
 
 Pre-Ing-2 S1 IT project <br>
 Subject CyWire [subject.pdf](subject.pdf) <br>
-Project report [report.pdf](RapportProjetInformatique.pdf) <br>
+Project report [RapportProjetInfo.pdf](RapportProjetInformatique.pdf) <br>
 
 ## Compilation
 
@@ -19,6 +19,13 @@ Project report [report.pdf](RapportProjetInformatique.pdf) <br>
 - power_plant_id: id of the power plant (optional)
 
 ⚠️ some case are not allowed (hvb all/indiv) & (hva all/indiv)
+
+### Options
+
+- -h: Display help
+- -c: Compile the C program
+- -benchmark: Enable benchmark mode
+- -test: Run unit test (make test && ./test.sh)"
 
 ```bash
 ./c-wire.sh input/[input_file] [station_type(hvb, hva, lv)] [consumer_type(indiv, comp, all)] (power_plant_id)
