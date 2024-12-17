@@ -13,54 +13,59 @@
 #endif
 
 /**
-enable benchmark method
+ * @brief Set the benchmark status
+ * @param enabled
  */
 void set_benchmark_enabled(bool enabled);
 
 /**
-get the current time in millis
+ * @brief Get the current time in milliseconds
+ * @return the current time in milliseconds
  */
 long long current_time_in_ms();
 
 /**
-mark the start of a benchmark
+ * @brief mark the start of a benchmark
  */
 void mark_benchmark_start();
 
 /**
-mark the end of a benchmark
+ * @brief mark the end of a benchmark
  */
 void mark_benchmark_end();
 
 /**
-mark the end of settings time process
+ * @brief mark the end of the setting time process
  */
 void mark_setting_time();
 
 /**
-mark the end of the build time process
+ * @brief mark the end of the build time process
  */
 void mark_build_time();
+
 /**
-mark the end of the collect time process
+ * @brief mark the end of the collect time process
  */
 void mark_collect_time();
-/*
-mark the end of the sort time process
-*/
-void mark_sort_time();
+
 /**
-mark the end of the write time process
+ * @brief mark the end of the sort time process
+ */
+void mark_sort_time();
+
+/**
+ * @brief mark the end of the write time process
  */
 void mark_write_time();
 
 /**
-pretty print of the benchmark result
+ * @brief print the benchmark result
  */
 void benchmark_result();
 
 /**
-print the memory usage of the program
+ * @brief print the memory usage
  */
 void print_memory_usage();
 
