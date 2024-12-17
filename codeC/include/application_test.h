@@ -19,14 +19,14 @@ int test_global();
  * @brief Tests the settings parser.
  * @return Default settings.
  */
-ApplicationSettings* test_settings_parser();
+ApplicationSettings *test_settings_parser();
 
 /**
  * @brief Tests the CSV parser.
  * @param settings The application settings.
  * @return The parsed AVL.
  */
-StationNode* test_avl_build(ApplicationSettings* settings);
+StationNode *test_avl_build(ApplicationSettings *settings);
 
 /**
  * @brief Tests the AVL tree result.
@@ -34,7 +34,7 @@ StationNode* test_avl_build(ApplicationSettings* settings);
  * @param count The number of results.
  * @return The results.
  */
-StationResult** test_output(StationNode* node, int* count);
+StationResult **test_output(StationNode *node, int *count);
 
 /**
  * @brief Tests the quicksort.
@@ -42,7 +42,7 @@ StationResult** test_output(StationNode* node, int* count);
  * @param count The number of results.
  * @return The sorted results.
  */
-StationResult** test_qsort(StationResult** result, int count);
+StationResult **test_qsort(StationResult **result, int count);
 
 /**
  * @brief Check if we have -t argument.

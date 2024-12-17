@@ -5,14 +5,14 @@
 
 int test_global() {
     printf("Starting tests\n");
-    ApplicationSettings* settingsParser = test_settings_parser();
+    ApplicationSettings *settingsParser = test_settings_parser();
     if (settingsParser == NULL) {
         printf("[Test] Settings parser failed\n");
         return 1;
     }
     printf("[Test] Settings parser passed\n");
 
-    StationNode* node = test_avl_build(settingsParser);
+    StationNode *node = test_avl_build(settingsParser);
     if (node == NULL) {
         printf("[Test] AVL build failed\n");
         return 1;
@@ -21,7 +21,7 @@ int test_global() {
 
     int count = 0;
 
-    StationResult** result = test_output(node, &count);
+    StationResult **result = test_output(node, &count);
     if (result == NULL) {
         printf("[Test] Output failed\n");
         return 1;
@@ -29,7 +29,7 @@ int test_global() {
     printf("[Test] Output passed\n");
 
 
-    StationResult** sorted_result = test_qsort(result, count);
+    StationResult **sorted_result = test_qsort(result, count);
     if (sorted_result == NULL) {
         printf("[Test] Qsort failed\n");
         return 1;
@@ -48,7 +48,7 @@ int test_global() {
     return 0;
 }
 
-ApplicationSettings* test_settings_parser() {
+ApplicationSettings *test_settings_parser() {
     //Testing normal case
     char *argv[] = {"test", "test-files/test-data.csv", "lv", "all"};
     ApplicationSettings *settings = parse_application_settings(4, argv);
@@ -60,9 +60,9 @@ ApplicationSettings* test_settings_parser() {
     assert(settings->station_type == STATION_LV);
     assert(settings->consumer_type == CONSUMER_ALL);
     assert(validate_application_settings(settings));
-   // free_application_settings(settings);
+    // free_application_settings(settings);
 
-    char* argv1[] = {"test", "test.csv", "hvb", "comp"};
+    char *argv1[] = {"test", "test.csv", "hvb", "comp"};
     ApplicationSettings *settings1 = parse_application_settings(4, argv1);
     assert(settings1 != NULL);
     assert(strcmp(settings1->filename, "test.csv") == 0);
@@ -103,29 +103,29 @@ ApplicationSettings* test_settings_parser() {
     ApplicationSettings *settings3 = parse_application_settings(6, argv3);
     assert(settings3 == NULL);
 
-    char* argv4[] = {"test", "test.csv", "lv", "all", "a"};
+    char *argv4[] = {"test", "test.csv", "lv", "all", "a"};
     ApplicationSettings *settings4 = parse_application_settings(5, argv4);
     assert(settings4 == NULL);
 
-    char* argv5[] = {"test.csv", "lv", "all", "1"};
+    char *argv5[] = {"test.csv", "lv", "all", "1"};
     ApplicationSettings *settings5 = parse_application_settings(4, argv5);
     assert(settings5 == NULL);
 
     return settings;
 }
 
-StationNode* test_avl_build(ApplicationSettings* settings) {
+StationNode *test_avl_build(ApplicationSettings *settings) {
     if (settings == NULL) {
         return NULL;
     }
 
-    StationNode* root = NULL;
+    StationNode *root = NULL;
 
     root = process_csv_file(settings);
     assert(root != NULL);
 
     //check if data is correct
-    StationNode* node_to_find = get_station_node(root, 1);
+    StationNode *node_to_find = get_station_node(root, 1);
     assert(node_to_find != NULL);
     assert(node_to_find->load == 171359043);
     assert(node_to_find->capacity == 241999040);
@@ -137,12 +137,12 @@ StationNode* test_avl_build(ApplicationSettings* settings) {
     return root;
 }
 
-StationResult** test_output(StationNode* node, int* count) {
+StationResult **test_output(StationNode *node, int *count) {
     if (node == NULL) {
         return NULL;
     }
 
-    StationResult** result = collect_results(node, count);
+    StationResult **result = collect_results(node, count);
     assert(result != NULL);
 
     for (int i = 0; i < *count; i++) {
@@ -156,7 +156,7 @@ StationResult** test_output(StationNode* node, int* count) {
     return result;
 }
 
-StationResult** test_qsort(StationResult** result, int count) {
+StationResult **test_qsort(StationResult **result, int count) {
     qsort_by_capacity(result, count);
 
     for (int i = 0; i < count - 1; i++) {

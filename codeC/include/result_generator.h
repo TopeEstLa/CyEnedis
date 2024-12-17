@@ -23,20 +23,20 @@ typedef struct station_result {
  * @param node The station node
  * @return The new station result
  */
-StationResult* create_station_result(StationNode* node);
+StationResult *create_station_result(StationNode *node);
 
 /**
  * @brief Free a station result
  * @param result The station result to free
  */
-void free_station_result(StationResult* result);
+void free_station_result(StationResult *result);
 
 /**
  * @brief Print a station result to the console
  * @param result The station result to print
  * @param count The number of results
  */
-void print_station_result(StationResult** result, int count);
+void print_station_result(StationResult **result, int count);
 
 /**
  * @brief Facade function to collect results from an AVL tree and transform them into a tab
@@ -44,7 +44,7 @@ void print_station_result(StationResult** result, int count);
  * @param count The number of results
  * @return The array of results
  */
-StationResult** collect_results(StationNode* root, int* count);
+StationResult **collect_results(StationNode *root, int *count);
 
 /**
  * @brief Using an List (from CDataType) to collect results from an AVL tree
@@ -61,7 +61,7 @@ void collect_results_helper(StationNode *node, StationResult **list, int *index)
  * @param count
  * @return
  */
-StationResult** sort_by_capacity(StationResult** results, int count);
+StationResult **sort_by_capacity(StationResult **results, int count);
 
 
 #endif //RESULT_GENERATOR_H

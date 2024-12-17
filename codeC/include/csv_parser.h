@@ -32,7 +32,7 @@ typedef struct parsed_data {
  * @param settings The application settings.
  * @return the root of the AVL tree or NULL if an error occurred.
  */
-StationNode* process_csv_file(ApplicationSettings* settings);
+StationNode *process_csv_file(ApplicationSettings *settings);
 
 /**
  * @brief Parse a CSV line and return the parsed data.
@@ -40,7 +40,7 @@ StationNode* process_csv_file(ApplicationSettings* settings);
  * @param line The CSV line to parse.
  * @return The parsed data or NULL if an error occurred.
  */
-ParsedData* parse_csv_line(ApplicationSettings* settings, char* line);
+ParsedData *parse_csv_line(ApplicationSettings *settings, char *line);
 
 /**
  * @brief Check if the station should be processed.
@@ -48,7 +48,7 @@ ParsedData* parse_csv_line(ApplicationSettings* settings, char* line);
  * @param settings The application settings.
  * @return true if the station should be processed, false otherwise.
  */
-bool should_process_station(ParsedData* data, ApplicationSettings* settings);
+bool should_process_station(ParsedData *data, ApplicationSettings *settings);
 
 /**
  * @brief Check if the consumer should be processed.
@@ -56,7 +56,7 @@ bool should_process_station(ParsedData* data, ApplicationSettings* settings);
  * @param settings The application settings.
  * @return true if the consumer should be processed, false otherwise.
  */
-bool should_process_consumer(ParsedData* data, ApplicationSettings* settings);
+bool should_process_consumer(ParsedData *data, ApplicationSettings *settings);
 
 /**
  * @brief Get the parent station of the consumer.
@@ -64,8 +64,7 @@ bool should_process_consumer(ParsedData* data, ApplicationSettings* settings);
  * @param settings The application settings.
  * @return The parent station id or -1 if not found.
  */
-int get_parent_station(ParsedData* data, ApplicationSettings* settings);
-
+int get_parent_station(ParsedData *data, ApplicationSettings *settings);
 
 
 #endif //CSV_PARSER_H

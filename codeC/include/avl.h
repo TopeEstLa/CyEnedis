@@ -112,6 +112,6 @@ bool is_avl(StationNode *root);
  * @param root The root of the tree.
  * @return The new root of the tree.
  */
-StationNode* equalize_avl(StationNode* root);
+StationNode *equalize_avl(StationNode *root);
 
 #endif //AVL_H

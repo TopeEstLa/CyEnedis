@@ -4,7 +4,7 @@
 Allocation *allocations = NULL;
 
 void add_allocation(void *ptr, size_t size, const char *file, int line) {
-    Allocation *new_alloc = (Allocation *)malloc(sizeof(Allocation));
+    Allocation *new_alloc = (Allocation *) malloc(sizeof(Allocation));
     new_alloc->ptr = ptr;
     new_alloc->size = size;
     new_alloc->file = file;

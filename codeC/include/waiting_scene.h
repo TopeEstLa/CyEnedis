@@ -10,6 +10,6 @@ void init_waiting_scene();
 @brief Loop for rendering the waiting scene
 @param varg the thread argument
  */
-void* draw_waiting_scene(void* varg);
+void *draw_waiting_scene(void *varg);
 
 #endif //WAITING_SCENE_H

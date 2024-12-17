@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void slowPrint(char* words,int speed){
-    while(*words){
+void slowPrint(char *words, int speed) {
+    while (*words) {
         putchar(*words);
         fflush(stdout);
         usleep(speed);
@@ -13,11 +13,11 @@ void slowPrint(char* words,int speed){
     putchar('\n');
 }
 
-void init_waiting_scene(){
+void init_waiting_scene() {
     //if we use ncurses lol
 }
 
-void* draw_waiting_scene(void* varg) {
+void *draw_waiting_scene(void *varg) {
     int value = 1;
     while (1) {
         printf("  _____                                _  _\n"

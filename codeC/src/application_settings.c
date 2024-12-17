@@ -157,7 +157,7 @@ char *generate_output_filename(ApplicationSettings *settings) {
     return filename;
 }
 
-char* generate_minmax_output_filename(ApplicationSettings* settings) {
+char *generate_minmax_output_filename(ApplicationSettings *settings) {
     char *filename = malloc(100 * sizeof(char));
     if (filename == NULL) return NULL;
 

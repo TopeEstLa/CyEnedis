@@ -146,7 +146,7 @@ bool is_avl(StationNode *root) {
     return is_avl(root->left) && is_avl(root->right);
 }
 
-StationNode* equalize_avl(StationNode* root) {
+StationNode *equalize_avl(StationNode *root) {
     if (root == NULL) return NULL;
 
     root->left = equalize_avl(root->left);

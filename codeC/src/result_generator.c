@@ -18,7 +18,7 @@ StationResult *create_station_result(StationNode *node) {
     return result;
 }
 
-void print_station_result(StationResult** result, int count) {
+void print_station_result(StationResult **result, int count) {
     if (result == NULL) return;
 
     for (int i = 0; i < count; i++) {
@@ -26,7 +26,7 @@ void print_station_result(StationResult** result, int count) {
     }
 }
 
-void free_station_result(StationResult* result) {
+void free_station_result(StationResult *result) {
     if (result == NULL) return;
     free(result);
 }
@@ -50,7 +50,7 @@ StationResult **collect_results(StationNode *root, int *count) {
     *count = 0;
     int node_count = get_node_count(root);
 
-    StationResult **results = malloc((node_count+1) * sizeof(StationResult *));
+    StationResult **results = malloc((node_count + 1) * sizeof(StationResult *));
     if (results == NULL) return NULL;
 
     int index = 0;
@@ -61,7 +61,7 @@ StationResult **collect_results(StationNode *root, int *count) {
     return results;
 }
 
-StationResult** sort_by_capacity(StationResult** results, int count) {
+StationResult **sort_by_capacity(StationResult **results, int count) {
     if (results == NULL) return NULL;
 
     for (int i = 0; i < count; i++) {
