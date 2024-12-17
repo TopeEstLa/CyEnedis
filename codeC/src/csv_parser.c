@@ -49,6 +49,11 @@ StationNode *process_csv_file(ApplicationSettings *settings) {
         free(data);
     }
 
+    if (root == NULL) {
+        fclose(file);
+        return NULL;
+    }
+
     rewind(file);
     fgets(line, sizeof(line), file);
 
