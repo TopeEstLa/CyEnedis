@@ -36,7 +36,7 @@ void write_min_max_csv(char *filename, StationResult **results, int count) {
         fprintf(file, "%d:%lld:%lld:%lld\n", results[i]->station_id, results[i]->capacity, results[i]->load, results[i]->ratio);
     }
 
-    fprintf(file, "...\n");
+    //fprintf(file, "...\n");
     for (int i = count - LAST_MIN; i < count; i++) {
         fprintf(file, "%d:%lld:%lld:%lld\n", results[i]->station_id, results[i]->capacity, results[i]->load, results[i]->ratio);
     }
