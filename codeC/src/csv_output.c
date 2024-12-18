@@ -54,12 +54,7 @@ void write_min_max_csv(char *filename, StationResult **results, int count) {
     }
 
     qsort_by_ratio(minmax_results, minmax_count);
-
-
-    for (int i = 0; i < minmax_count; i++) {
-        printf("%d %d:%lld:%lld:%lld\n", i, minmax_results[i]->station_id, minmax_results[i]->capacity,
-               minmax_results[i]->load, minmax_results[i]->ratio);
-    }
+    
 
     fprintf(file, "station_id:capacity:load:ratio\n");
     for (int i = 0; i < minmax_count; i++) {
