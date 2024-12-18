@@ -32,6 +32,15 @@ int capacity_partition(StationResult **results, int low, int high);
 int load_partition(StationResult **results, int low, int high);
 
 /**
+ * Partition the array by ratio
+ * @param results
+ * @param low
+ * @param high
+ * @return
+ */
+int ratio_partition(StationResult **results, int low, int high);
+
+/**
  * Quick sort by capacity
  * @param results Array of StationResult
  * @param low Low index
@@ -48,6 +57,14 @@ void capacity_quick_sort(StationResult **results, int low, int high);
 void load_quick_sort(StationResult **results, int low, int high);
 
 /**
+ * Partition the array by ratio
+ * @param results Array of StationResult
+ * @param low Low index
+ * @param high High index
+ */
+void ratio_quick_sort(StationResult **results, int low, int high);
+
+/**
  * Facade function to quick sort by capacity
  * @param results Array of StationResult
  * @param count Number of results
@@ -60,5 +77,12 @@ void qsort_by_capacity(StationResult **results, int count);
  * @param count Number of results
  */
 void qsort_by_load(StationResult **results, int count);
+
+/**
+ * Quick sort by ratio
+ * @param results Array of StationResult
+ * @param count Number of results
+ */
+void qsort_by_ratio(StationResult **results, int count);
 
 #endif //QSORT_H

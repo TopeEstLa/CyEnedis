@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
     mark_write_time();
 
     if (settings->station_type == STATION_LV && settings->consumer_type == CONSUMER_ALL) {
-        qsort_by_load(results, count);
+//        qsort_by_load(results, count);
 
         char *minmax_filename = generate_minmax_output_filename(settings);
         if (minmax_filename == NULL) {

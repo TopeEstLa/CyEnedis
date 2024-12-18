@@ -59,3 +59,4 @@ if c program exit code is not 0, shell script exit code will be the c program ex
 - 5: Error while using data from AVL tree
 - 6: Error while writing csv file
 - 7: Error while writing minmax csv file
+- 8: Error while allocating memory on min max
