@@ -197,15 +197,20 @@ fi
 gnuplot -persist << EOF
   set terminal png size 1200,600
   set output 'graphs/${OUTPUT_FILE_NAME}_load_graph.png'
-  set title 'Load graph of the 10 busiest and least loaded LV stations'
+  set title 'Load and Capacity graph of the 10 busiest and 10 least loaded LV stations'
   set style data histogram
+  set style histogram clustered gap 1
   set style fill solid
   set xtics rotate by -45
-  set ylabel 'Load (kWh)'
+  set ylabel 'kWh'
   set xlabel 'Station ID'
   set datafile separator ":"
-  plot 'output/${OUTPUT_FILE_NAME}_minmax.csv' using 3:xtic(1) with boxes title 'Load'
+  set key outside
+
+  plot 'output/${OUTPUT_FILE_NAME}_minmax.csv' using 2:xtic(1) title 'Capacity' lc rgb 'green', \
+       '' using 3 title 'Load' lc rgb 'red'
 EOF
+
 
 echo "Graphs generated in graphs/${OUTPUT_FILE_NAME}_load_graph.png"
 echo "Done"
