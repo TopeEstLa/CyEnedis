@@ -73,10 +73,9 @@ int main(int argc, char *argv[]) {
 
     write_csv(filename, results, count);
     mark_write_time();
+    free(filename);
 
     if (settings->station_type == STATION_LV && settings->consumer_type == CONSUMER_ALL) {
-//        qsort_by_load(results, count);
-
         char *minmax_filename = generate_minmax_output_filename(settings);
         if (minmax_filename == NULL) {
             pthread_cancel(tid);
@@ -93,7 +92,6 @@ int main(int argc, char *argv[]) {
     }
 
     free(results);
-    free(filename);
 
     free_application_settings(settings);
     pthread_cancel(tid);

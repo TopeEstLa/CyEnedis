@@ -74,7 +74,7 @@ StationNode *process_csv_file(ApplicationSettings *settings) {
 
             StationNode *node = get_station_node(root, parent_station);
             if (node == NULL) {
-                printf("Failed to find station %d error during parsing ? or csv file mis created ?\n", parent_station);
+                // Normal if we are in the case of a specific power plant
                 free(data);
                 continue;
             }
