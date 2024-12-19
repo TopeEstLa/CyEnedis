@@ -140,13 +140,13 @@ else
     OUTPUT_FILE_NAME="${STATION_TYPE}_${CONSUMER_TYPE}_${POWER_PLANT_ID}"
 fi
 
-END_TIME=$(date +%s)
-ELAPSED_TIME=$((END_TIME - START_TIME))
 
 if [ $STATUS_CODE == 0 ]; then
-      echo "The process was successful in $ELAPSED_TIME seconds (status : $STATUS_CODE)"
+      echo "The process was successful (status : $STATUS_CODE)"
 else
-      echo "The process failed in $ELAPSED_TIME seconds (status : $STATUS_CODE)"
+      END_TIME=$(date +%s)
+      ELAPSED_TIME=$((END_TIME - START_TIME))
+      echo "The process failed on $ELAPSED_TIME seconds (status : $STATUS_CODE)"
 fi
 
 case "$STATUS_CODE" in
@@ -160,7 +160,7 @@ case "$STATUS_CODE" in
     echo "Param is not valid (csv-file does not exist ?, station-type is not valid ?, consumer-type is not valid ?)"
     ;;
   4)
-    echo "Error while reading the file or building the AVL tree"
+    echo "Error while reading the file or building the AVL tree, or you ask a power plant that did not exist "
     ;;
   5)
     echo "Error while collecting data from AVL and ordering it"
@@ -180,11 +180,14 @@ case "$STATUS_CODE" in
 esac
 
 if [ $STATUS_CODE != 0 ]; then
-      exit $STATUS_CODE
+    exit $STATUS_CODE
 fi
 
-if [ ${STATION_TYPE,,} != "lv" ] || [ ${CONSUMER_TYPE,,} != "all" ]; then
-  exit 0
+if [ $STATION_TYPE != "lv" ] || [ $CONSUMER_TYPE != "all" ]; then
+    END_TIME=$(date +%s)
+    ELAPSED_TIME=$((END_TIME - START_TIME))
+    echo "Process finish on $ELAPSED_TIME seconds"
+    exit 0
 fi
 
 echo "Generating graphs..."
@@ -201,16 +204,20 @@ gnuplot -persist << EOF
   set style data histogram
   set style histogram clustered gap 1
   set style fill solid
+  set autoscale
   set xtics rotate by -45
   set ylabel 'kWh'
   set xlabel 'Station ID'
   set datafile separator ":"
   set key outside
 
-  plot 'output/${OUTPUT_FILE_NAME}_minmax.csv' using 2:xtic(1) title 'Capacity' lc rgb 'green', \
-       '' using 3 title 'Load' lc rgb 'red'
+  plot 'output/${OUTPUT_FILE_NAME}_minmax.csv' using 2:xtic(1) title 'Capacity' lc rgb 'green', '' using 3 title 'Load' lc rgb 'red'
 EOF
 
-
 echo "Graphs generated in graphs/${OUTPUT_FILE_NAME}_load_graph.png"
+
+END_TIME=$(date +%s)
+ELAPSED_TIME=$((END_TIME - START_TIME))
+
+echo "Process finish on $ELAPSED_TIME seconds"
 echo "Done"
