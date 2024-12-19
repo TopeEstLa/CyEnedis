@@ -13,7 +13,7 @@ StationResult *create_station_result(StationNode *node) {
     result->capacity = node->capacity;
     result->load = node->load;
     long long rate = node->capacity - node->load;
-    result->ratio = llabs(rate);
+    result->ratio = rate;
 
     return result;
 }

@@ -36,7 +36,7 @@ int ratio_partition(StationResult **results, int low, int high) {
     long long pivot = results[high]->ratio;
     int i = low - 1;
     for (int j = low; j < high; j++) {
-        if (results[j]->ratio > pivot) {
+        if (results[j]->ratio < pivot) {
             i++;
             swap(&results[i], &results[j]);
         }
