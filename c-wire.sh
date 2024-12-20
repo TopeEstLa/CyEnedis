@@ -132,6 +132,22 @@ else
     OUTPUT_FILE_NAME="${STATION_TYPE}_${CONSUMER_TYPE}_${POWER_PLANT_ID}"
 fi
 
+printf "\033[2J\033[H"
+
+echo "  _____         ______                   _  _"
+echo " / ____|       |  ____|                 | |(_)"
+echo "| |      _   _ | |__    _ __    ___   __| | _  ___"
+echo "| |     | | | ||  __|  | '_ \  / _ \ / _  || |/ __|"
+echo "| |____ | |_| || |____ | | | ||  __/| (_| || |\__  "
+echo " \_____| \__, ||______||_| |_| \___| \__,_||_||___/"
+echo "          __/ |"
+echo "         |___/"
+
+echo "                   data processing completed"
+printf "\033[0;37m"
+echo "               ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰"
+printf "\033[0;36m"
+printf "\n"
 
 if [ $STATUS_CODE == 0 ]; then
       echo "The process was successful (status : $STATUS_CODE)"
