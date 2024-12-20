@@ -143,9 +143,9 @@ echo " \_____| \__, ||______||_| |_| \___| \__,_||_||___/"
 echo "          __/ |"
 echo "         |___/"
 
-echo "                   data processing completed"
+echo "           data processing completed"
 printf "\033[0;37m"
-echo "               ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰"
+echo "          ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰"
 printf "\033[0;36m"
 printf "\n"
 
