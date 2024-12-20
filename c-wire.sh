@@ -3,6 +3,8 @@
 PROG_FOLDER="codeC"
 EXEC_NAME="${PROG_FOLDER}/CyEnedis"
 
+printf '\033[0;36m'
+
 function send_help() {
     echo "Usage: ./c-wire.sh [ARG] [OPTION]"
     echo "Arguments:"
