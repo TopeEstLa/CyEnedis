@@ -4,14 +4,29 @@
 #include <stdlib.h>
 #include <qsort.h>
 
-void write_csv(char *filename, StationResult **results, int count) {
+void write_csv(ConsumerType consumerType, char *filename, StationResult **results, int count) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
         printf("Error opening file\n");
         return;
     }
 
-    fprintf(file, "station_id:capacity:load:ratio\n");
+    switch (consumerType) {
+        case CONSUMER_COMPANY:
+            fprintf(file, "station_id:capacity:load (company):ratio\n");
+            break;
+        case CONSUMER_INDIVIDUAL:
+            fprintf(file, "station_id:capacity:load (indiv):ratio\n");
+            break;
+        case CONSUMER_ALL:
+            fprintf(file, "station_id:capacity:load (all):ratio\n");
+            break;
+        case CONSUMER_INVALID:
+        default:
+            fprintf(file, "station_id:capacity:load:ratio\n");
+            break;
+    }
+
     for (int i = 0; i < count; i++) {
         fprintf(file, "%d:%lld:%lld:%lld\n", results[i]->station_id, results[i]->capacity, results[i]->load,
                 results[i]->ratio);
@@ -20,7 +35,7 @@ void write_csv(char *filename, StationResult **results, int count) {
     fclose(file);
 }
 
-void write_min_max_csv(char *filename, StationResult **results, int count) {
+void write_min_max_csv(ConsumerType consumerType, char *filename, StationResult **results, int count) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
         printf("Error opening file\n");
@@ -31,7 +46,7 @@ void write_min_max_csv(char *filename, StationResult **results, int count) {
     if (count < FIST_MAX + LAST_MIN) {
         //Not enough data to write min/max just write all
         qsort_by_ratio(results, count);
-        write_csv(filename, results, count);
+        write_csv(consumerType, filename, results, count);
         return;
     }
 
@@ -54,9 +69,24 @@ void write_min_max_csv(char *filename, StationResult **results, int count) {
     }
 
     qsort_by_ratio(minmax_results, minmax_count);
-    
 
-    fprintf(file, "station_id:capacity:load:ratio\n");
+
+    switch (consumerType) {
+        case CONSUMER_COMPANY:
+            fprintf(file, "station_id:capacity:load (company):ratio\n");
+            break;
+        case CONSUMER_INDIVIDUAL:
+            fprintf(file, "station_id:capacity:load (indiv):ratio\n");
+            break;
+        case CONSUMER_ALL:
+            fprintf(file, "station_id:capacity:load (all):ratio\n");
+            break;
+        case CONSUMER_INVALID:
+        default:
+            fprintf(file, "station_id:capacity:load:ratio\n");
+            break;
+    }
+
     for (int i = 0; i < minmax_count; i++) {
         fprintf(file, "%d:%lld:%lld:%lld\n", minmax_results[i]->station_id, minmax_results[i]->capacity,
                 minmax_results[i]->load, minmax_results[i]->ratio);

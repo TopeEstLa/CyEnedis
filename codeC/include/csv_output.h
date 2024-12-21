@@ -9,18 +9,20 @@
 
 /**
  * @brief Write the results to a CSV file.
+ * @param consumerType type of consumer
  * @param filename name of the file
  * @param results list of results
  * @param count row count
  */
-void write_csv(char *filename, StationResult **results, int count);
+void write_csv(ConsumerType consumerType, char *filename, StationResult **results, int count);
 
 /**
  * @brief Write the first 10 max and last 10 min results to a CSV file.
+ * @param consumerType type of consumer
  * @param filename name of the file to write to
  * @param results list of results
  * @param count row count
  */
-void write_min_max_csv(char *filename, StationResult **results, int count);
+void write_min_max_csv(ConsumerType consumerType, char *filename, StationResult **results, int count);
 
 #endif //CSV_OUTPUT_H
