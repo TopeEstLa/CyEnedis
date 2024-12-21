@@ -1,4 +1,4 @@
-station_id:capacity:load (company):ratio
+station_id (lv):capacity:load (company):ratio
 15:85799285:79045317:6753968
 12:122352561:85577082:36775479
 14:122456466:105726119:16730347
