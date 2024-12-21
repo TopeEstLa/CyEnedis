@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
         return 6;
     }
 
-    write_csv(settings->consumer_type, filename, results, count);
+    write_csv(settings->station_type, settings->consumer_type, filename, results, count);
     mark_write_time();
     free(filename);
 
@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
             return 7;
         }
 
-        write_min_max_csv(settings->consumer_type, minmax_filename, results, count);
+        write_min_max_csv(settings->station_type, settings->consumer_type, minmax_filename, results, count);
 
         free(minmax_filename);
     }
